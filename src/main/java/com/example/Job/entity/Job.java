@@ -1,5 +1,7 @@
 package com.example.Job.entity;
 
+import com.example.Job.constant.LevelEnum;
+import com.example.Job.security.JwtTokenProvider;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +23,9 @@ public class Job {
     private String location;
     private double salary;
     private int quantity;
-//    private LevelEnum level;
+    private LevelEnum level;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private Instant startDate;
@@ -40,19 +42,20 @@ public class Job {
     private String updatedBy;
 
 
-//    @PrePersist
-//    public void handleBeforeCreate() {
-//
-//        this.setCreatedBy(JwtTokenProvider.getCurrentUserLogin()
-//                .orElseThrow(() -> null));
-//        this.setCreatedAt(Instant.now());
-//    }
-//
-//    @PreUpdate
-//    public void handleBeforeUpdate() {
-//
-//        this.setUpdatedBy(JwtTokenProvider.getCurrentUserLogin()
-//                .orElseThrow(() -> null));
-//        this.setUpdatedAt(Instant.now());
-//    }
+    // Before add a new job, set CreatedBy to email who add the job
+    @PrePersist
+    public void handleBeforeCreate() {
+
+        this.setCreatedBy(JwtTokenProvider.getCurrentUserLogin()
+                .orElseThrow(() -> null));
+        this.setCreatedAt(Instant.now());
+    }
+
+    @PreUpdate
+    public void handleBeforeUpdate() {
+
+        this.setUpdatedBy(JwtTokenProvider.getCurrentUserLogin()
+                .orElseThrow(() -> null));
+        this.setUpdatedAt(Instant.now());
+    }
 }

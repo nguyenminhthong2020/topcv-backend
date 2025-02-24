@@ -1,9 +1,5 @@
 package com.example.Job.exception;
 
-
-
-
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authorization.AuthorizationDeniedException;
@@ -21,8 +17,6 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     // handle specific exception
-
-
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
