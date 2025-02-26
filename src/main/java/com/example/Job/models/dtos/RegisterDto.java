@@ -26,7 +26,7 @@ public class RegisterDto {
     private String email;
 
     @NotBlank(message = "Password must not be blank")
-    private String password;
+    public String password;
 
     private Date birthday;
     private GenderEnum gender;

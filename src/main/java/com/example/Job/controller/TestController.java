@@ -24,13 +24,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import com.example.Job.service.ILogService;
 
-import com.example.Job.annotations.LogRequest; 
+import com.example.Job.annotations.LogRequest;
 // import org.springframework.web.bind.annotation.*;
 
-import com.example.Job.models;
-import com.example.Job.utils;
+import com.example.Job.models.Result;
+import com.example.Job.utils.DecryptUtil;
 
 import org.springframework.core.env.Environment;
+
+import com.example.Job.models.EncryptResponse;
 
 @RestController
 @RequestMapping("/api/v1/test")
@@ -46,30 +48,11 @@ public class TestController {
     }
 
     @PostMapping("/generate-encrypt-key")
-    public String generateEncryptKey() {
-        JwtTokenProvider provider = new JwtTokenProvider();
+    public EncryptResponse generateEncryptKey() {
         String key = environment.getProperty("app.decrypt-key");
         String plainText = "123456";
 
-        String encryptedText = provider.encryptString(key, plainText);
+        String encryptedText = DecryptUtil.encryptString(key, plainText);
         return new EncryptResponse(encryptedText);
-    }
-}
-
-public class EncryptResponse {
-    private String encryptText;
-
-    // Constructor
-    public EncryptResponse(String encryptText) {
-        this.encryptText = encryptText;
-    }
-
-    // Getter và Setter
-    public String getEncryptText() {
-        return encryptText;
-    }
-
-    public void setEncryptText(String encryptText) {
-        this.encryptText = encryptText;
     }
 }

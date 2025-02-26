@@ -24,11 +24,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import com.example.Job.service.ILogService;
 
-import com.example.Job.annotations.LogRequest; 
+import com.example.Job.annotations.LogRequest;
 // import org.springframework.web.bind.annotation.*;
 
-import com.example.Job.models;
-import com.example.Job.utils;
+import com.example.Job.models.Result;
+import com.example.Job.utils.DecryptUtil;
 
 import org.springframework.core.env.Environment;
 
@@ -85,7 +85,7 @@ public class AuthController {
                 .body(jwtAuthResponse);
 
     }
-    
+
     @PostMapping("/register")
     public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto registerDto) {
         StringBuilder sb = new StringBuilder();
@@ -130,7 +130,7 @@ public class AuthController {
             return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     /**
      * Password gửi lên là chuỗi đã được mã hóa
      */
@@ -150,12 +150,11 @@ public class AuthController {
             // System.out.println("RegisterDto: " + registerDto);
             String key = environment.getProperty("app.decrypt-key");
             Result result = DecryptUtil.decryptString(key, registerDto.password);
-            if(result.success == false)
-            {
-                throw new Exception(result.message);
+            if (result.isSuccess() == false) {
+                throw new Exception(result.getMessage());
             }
 
-            registerDto.password = result.message;
+            registerDto.password = result.getMessage;
             UserDto response = authService.register(registerDto);
 
             ResponseDto responseDto = new ResponseDto.Builder()
