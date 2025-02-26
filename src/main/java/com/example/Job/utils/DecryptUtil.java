@@ -45,7 +45,7 @@ public class DecryptUtil {
         try {
             // Chuyển key từ hex thành mảng byte
             byte[] key = hexStringToByteArray(keyHex);
-            byte[] iv = new byte[16]; // Khởi tạo vector khởi tạo (IV) 16 bytes (AES block size)
+            byte[] iv = new byte[16]; // Khởi tạo IV 16 bytes (AES block size)
 
             SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
 
@@ -54,11 +54,10 @@ public class DecryptUtil {
 
             byte[] encryptedBytes = cipher.doFinal(plainText.getBytes());
 
-            // Chuyển kết quả mã hóa sang Base64 để có thể gửi qua mạng hoặc lưu trữ
+            // Chuyển kết quả mã hóa sang Base64
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-            return " ";
+            throw new RuntimeException("Lỗi mã hóa AES: " + ex.getMessage(), ex);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.Job.models;
 
-public static class Result {
+public class Result {
     private boolean success;
     private String message;
 

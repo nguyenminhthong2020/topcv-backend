@@ -154,7 +154,7 @@ public class AuthController {
                 throw new Exception(result.getMessage());
             }
 
-            registerDto.password = result.getMessage;
+            registerDto.password = result.getMessage();
             UserDto response = authService.register(registerDto);
 
             ResponseDto responseDto = new ResponseDto.Builder()
