@@ -1,8 +1,8 @@
 package com.example.Job.service;
 
-import com.example.Job.dto.LoginDto;
-import com.example.Job.dto.RegisterDto;
-import com.example.Job.dto.UserDto;
+import com.example.Job.models.dtos.LoginDto;
+import com.example.Job.models.dtos.RegisterDto;
+import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 
 
