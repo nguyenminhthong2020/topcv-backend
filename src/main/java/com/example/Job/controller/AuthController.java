@@ -1,9 +1,9 @@
 package com.example.Job.controller;
 
-import com.example.Job.dto.LoginDto;
-import com.example.Job.dto.RegisterDto;
-import com.example.Job.dto.ResponseDto;
-import com.example.Job.dto.UserDto;
+import com.example.Job.models.dtos.LoginDto;
+import com.example.Job.models.dtos.RegisterDto;
+import com.example.Job.models.dtos.ResponseDto;
+import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.security.JwtAuthResponse;
 import com.example.Job.security.JwtTokenProvider;
@@ -24,13 +24,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import com.example.Job.service.ILogService;
 
+import com.example.Job.annotations.LogRequest; 
+// import org.springframework.web.bind.annotation.*;
+
+import com.example.Job.models;
+import com.example.Job.utils;
+
+import org.springframework.core.env.Environment;
+
 @RestController
 @RequestMapping("/api/v1/auth")
+@LogRequest
 public class AuthController {
 
     private AuthService authService;
     private UserService userService;
     private JwtTokenProvider jwtTokenProvider;
+    private Environment environment;
 
     private ILogService _logService;
 
@@ -39,11 +49,12 @@ public class AuthController {
 
     @Autowired
     public AuthController(AuthService authService, UserService userService,
-            JwtTokenProvider jwtTokenProvider, ILogService logServivce) {
+            JwtTokenProvider jwtTokenProvider, ILogService logServivce, Environment environment) {
         this.authService = authService;
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
         this._logService = logServivce;
+        this.environment = environment;
     }
 
     @PostMapping("/login")
@@ -74,7 +85,7 @@ public class AuthController {
                 .body(jwtAuthResponse);
 
     }
-
+    
     @PostMapping("/register")
     public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto registerDto) {
         StringBuilder sb = new StringBuilder();
@@ -89,6 +100,62 @@ public class AuthController {
                     .append("\n");
 
             // System.out.println("RegisterDto: " + registerDto);
+            UserDto response = authService.register(registerDto);
+
+            ResponseDto responseDto = new ResponseDto.Builder()
+                    .setStatus(HttpStatus.CREATED)
+                    .setMessage("Register successfully")
+                    .setData(response)
+                    .build();
+
+            sb.append("\r\tRegister successfully");
+
+            _logService.logInfo(sb.toString());
+
+            return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        } catch (Exception e) { // sẽ fix lại chỗ try catch này
+            e.printStackTrace();
+
+            // Ghi log lỗi
+            _logService.logError("Registration error", e);
+
+            // Tạo ResponseDto cho trường hợp lỗi
+            ResponseDto errorResponseDto = new ResponseDto.Builder()
+                    .setStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .setMessage("Registration failed: " + e.getMessage())
+                    .setData(null)
+                    .build();
+
+            // Trả về ResponseEntity với lỗi
+            return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    /**
+     * Password gửi lên là chuỗi đã được mã hóa
+     */
+    @PostMapping("/secure-register")
+    public ResponseEntity<ResponseDto> secureRegister(@Valid @RequestBody RegisterDto registerDto) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            // Tạo ObjectMapper để chuyển RegisterDto thành chuỗi JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            String registerDtoJson = objectMapper.writeValueAsString(registerDto);
+
+            // Thêm vào StringBuilder
+            sb.append(String.format("New user register at %s: \n", LocalDateTime.now()))
+                    .append(registerDtoJson)
+                    .append("\n");
+
+            // System.out.println("RegisterDto: " + registerDto);
+            String key = environment.getProperty("app.decrypt-key");
+            Result result = DecryptUtil.decryptString(key, registerDto.password);
+            if(result.success == false)
+            {
+                throw new Exception(result.message);
+            }
+
+            registerDto.password = result.message;
             UserDto response = authService.register(registerDto);
 
             ResponseDto responseDto = new ResponseDto.Builder()

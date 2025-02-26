@@ -1,6 +1,6 @@
 package com.example.Job.service.Impl;
 
-import com.example.Job.dto.UserDto;
+import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.repository.UserRepository;
