@@ -1,6 +1,5 @@
 package com.example.Job.config;
 
-
 import com.example.Job.security.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,14 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,36 +32,32 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        String whiteList[] = {"/api/v1/auth/**", "/storage/**", "/api/v1/jobs/**", "api/v1/companies/**", "api/v1/email/**"};
+        String whiteList[] = { "/api/v1/auth/**", "/api/v1/test/**", "/storage/**", "/api/v1/jobs/**",
+                "api/v1/companies/**", "api/v1/email/**" };
 
-        http.authorizeHttpRequests(configurer ->
-                        configurer
-                                .requestMatchers(whiteList).permitAll()
-                                .anyRequest().authenticated()
+        http.authorizeHttpRequests(configurer -> configurer
+                .requestMatchers(whiteList).permitAll()
+                .anyRequest().authenticated()
 
         );
-//        http.cors(Customizer.withDefaults());
+        // http.cors(Customizer.withDefaults());
         // disable Cors
         http.cors(cors -> cors.disable());
 
-        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())
-        );
+        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         // use HTTP Basic authentication
 
-        http.exceptionHandling(exception ->
-                        exception
-//                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) //401
-                                .authenticationEntryPoint(jwtAuthenticationEntryPoint) // handle Jwt exception
-                                .accessDeniedHandler(new BearerTokenAccessDeniedHandler()) // 403
+        http.exceptionHandling(exception -> exception
+                // .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) //401
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint) // handle Jwt exception
+                .accessDeniedHandler(new BearerTokenAccessDeniedHandler()) // 403
 
         );
-
 
         http.httpBasic(Customizer.withDefaults());
 
         http.csrf(csrf -> csrf.disable());
-
 
         return http.build();
     }
