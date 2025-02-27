@@ -6,7 +6,7 @@ import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.repository.UserRepository;
 import com.example.Job.security.JwtTokenProvider;
-import com.example.Job.service.AuthService;
+import com.example.Job.service.interfaces.IAuthService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class AuthService implements IAuthService {
     private UserRepository userRepository;
     private AuthenticationManager authenticationManager;
     private ModelMapper modelMapper;
@@ -26,7 +27,8 @@ public class AuthServiceImpl implements AuthService {
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager,
+            ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.modelMapper = modelMapper;
@@ -35,26 +37,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public String login(LoginDto loginDto, User user) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(), loginDto.getPassword());
-        Authentication authentication= authenticationManager.authenticate(token);
+        Authentication authentication = authenticationManager.authenticate(token);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwtToken = jwtTokenProvider.createAccessToken(user);
 
-
         return jwtToken;
-
 
     }
 
-
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDto register(RegisterDto registerDto) {
         // add check for email exists in database
-        if(userRepository.existsByEmail(registerDto.getEmail())){
+        if (userRepository.existsByEmail(registerDto.getEmail())) {
             throw new RuntimeException("Email is already exist");
         }
 
@@ -66,11 +67,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setRole(registerDto.getRole());
 
+        // Role userRole = roleRepository.findByName("USER").get();
+        // user.getRoles().add(userRole);
 
-//        Role userRole = roleRepository.findByName("USER").get();
-//        user.getRoles().add(userRole);
-
-        User addedUser =  userRepository.save(user);
+        User addedUser = userRepository.save(user);
         return modelMapper.map(addedUser, UserDto.class);
     }
 
