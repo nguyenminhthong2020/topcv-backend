@@ -90,13 +90,6 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
-		<!-- JCE (Java Cryptography Extension) for AES, CBC, and PKCS5Padding -->
-		<!-- <dependency>
-			<groupId>javax.crypto</groupId>
-			<artifactId>javax.crypto-api</artifactId>
-			<version>1.0.1</version>
-		</dependency> -->
-		
 		<!-- For Base64 encoding/decoding -->
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -132,6 +125,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Starter Data MongoDB -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 	</dependencies>
 
