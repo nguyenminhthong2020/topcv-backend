@@ -30,3 +30,8 @@
   - Project Manager for Java
   - Maven for Java
   - Spring Initializr Java Support
+
+# Chạy project:
+
+- mvn clean
+- mvn spring-boot:run
