@@ -2080,3 +2080,479 @@ java.lang.Exception: javax.crypto.IllegalBlockSizeException: Input length must b
 [DEBUG] 2025-02-27 23:53:36 - Using 'application/json', given [application/json, */*] and supported [application/json]
 [DEBUG] 2025-02-27 23:53:36 - Writing [{123, 34, 111, 112, 101, 110, 97, 112, 105, 34, 58, 34, 51, 46, 48, 46, 49, 34, 44, 34, 105, 110, 10 (truncated)...]
 [DEBUG] 2025-02-27 23:53:36 - Completed 200 OK
+[INFO] 2025-02-27 23:56:57 - Commencing graceful shutdown. Waiting for active requests to complete
+[INFO] 2025-02-27 23:56:57 - Graceful shutdown complete
+[INFO] 2025-02-27 23:56:57 - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-27 23:56:57 - HikariPool-9 - Shutdown initiated...
+[INFO] 2025-02-27 23:56:57 - HikariPool-9 - Shutdown completed.
+[INFO] 2025-02-28 00:32:44 - HV000001: Hibernate Validator 8.0.2.Final
+[INFO] 2025-02-28 00:32:44 - Starting JobApplication using Java 21.0.5 with PID 1736 (D:\2024\ivc\github\topcv-backend\target\classes started by ACER in D:\2024\ivc\github\topcv-backend)
+[INFO] 2025-02-28 00:32:44 - No active profile set, falling back to 1 default profile: "default"
+[INFO] 2025-02-28 00:32:44 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO] 2025-02-28 00:32:44 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO] 2025-02-28 00:32:46 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:32:46 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:32:46 - Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+[INFO] 2025-02-28 00:32:46 - Finished Spring Data repository scanning in 120 ms. Found 2 JPA repository interfaces.
+[INFO] 2025-02-28 00:32:46 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:32:46 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:32:46 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 00:32:46 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 00:32:46 - Finished Spring Data repository scanning in 11 ms. Found 1 MongoDB repository interface.
+[INFO] 2025-02-28 00:32:46 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:32:46 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:32:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:32:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:32:46 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:32:46 - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+[INFO] 2025-02-28 00:32:47 - Tomcat initialized with port 8090 (http)
+[INFO] 2025-02-28 00:32:47 - Initializing ProtocolHandler ["http-nio-8090"]
+[INFO] 2025-02-28 00:32:47 - Starting service [Tomcat]
+[INFO] 2025-02-28 00:32:47 - Starting Servlet engine: [Apache Tomcat/10.1.36]
+[INFO] 2025-02-28 00:32:47 - Initializing Spring embedded WebApplicationContext
+[INFO] 2025-02-28 00:32:47 - Root WebApplicationContext: initialization completed in 2395 ms
+[DEBUG] 2025-02-28 00:32:47 - Filter 'webMvcObservationFilter' configured for use
+[INFO] 2025-02-28 00:32:47 - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO] 2025-02-28 00:32:47 - HHH000412: Hibernate ORM core version 6.6.8.Final
+[INFO] 2025-02-28 00:32:47 - HHH000026: Second-level cache disabled
+[INFO] 2025-02-28 00:32:48 - No LoadTimeWeaver setup: ignoring JPA class transformer
+[INFO] 2025-02-28 00:32:48 - HikariPool-1 - Starting...
+[INFO] 2025-02-28 00:32:48 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@45d3f132
+[INFO] 2025-02-28 00:32:48 - HikariPool-1 - Start completed.
+[INFO] 2025-02-28 00:32:48 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+[INFO] 2025-02-28 00:32:49 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[INFO] 2025-02-28 00:32:49 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 00:32:49 - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+[INFO] 2025-02-28 00:32:50 - MongoClient with metadata {"application": {"name": "ClusterTopcv"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='atlas-sample-dataset-load-67c09b412826c72262a6526e', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@2e82cec2], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@3db96838, com.mongodb.Jep395RecordCodecProvider@3a23e3ff, com.mongodb.KotlinCodecProvider@56c0f04f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=clustertopcv.nhxhu.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-12cnzd-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@15dc3aa], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='ClusterTopcv', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+[WARN] 2025-02-28 00:32:50 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testNoAuthController' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\controller\TestNoAuthController.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+[INFO] 2025-02-28 00:32:50 - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 00:32:51 - HikariPool-1 - Shutdown initiated...
+[INFO] 2025-02-28 00:32:51 - HikariPool-1 - Shutdown completed.
+[INFO] 2025-02-28 00:32:51 - Stopping service [Tomcat]
+[INFO] 2025-02-28 00:32:51 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[ERROR] 2025-02-28 00:32:51 - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testNoAuthController' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\controller\TestNoAuthController.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.example.Job.JobApplication.main(JobApplication.java:13)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1606)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1460)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1664)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 37 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'mongoTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryDependentConfiguration.class]: Unsatisfied dependency expressed through method 'mongoTemplate' parameter 0: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 51 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1664)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:199)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 75 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Database name must not be empty
+	at org.springframework.util.Assert.hasText(Assert.java:253)
+	at org.springframework.data.mongodb.core.MongoDatabaseFactorySupport.<init>(MongoDatabaseFactorySupport.java:67)
+	at org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory.<init>(SimpleMongoClientDatabaseFactory.java:75)
+	at org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory.<init>(SimpleMongoClientDatabaseFactory.java:64)
+	at org.springframework.boot.autoconfigure.data.mongo.MongoDatabaseFactoryConfiguration.mongoDatabaseFactory(MongoDatabaseFactoryConfiguration.java:52)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+	... 78 common frames omitted
+[INFO] 2025-02-28 00:49:57 - HV000001: Hibernate Validator 8.0.2.Final
+[INFO] 2025-02-28 00:49:57 - Starting JobApplication using Java 21.0.5 with PID 2156 (D:\2024\ivc\github\topcv-backend\target\classes started by ACER in D:\2024\ivc\github\topcv-backend)
+[INFO] 2025-02-28 00:49:57 - No active profile set, falling back to 1 default profile: "default"
+[INFO] 2025-02-28 00:49:57 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO] 2025-02-28 00:49:57 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO] 2025-02-28 00:49:58 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:49:58 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:49:58 - Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+[INFO] 2025-02-28 00:49:58 - Finished Spring Data repository scanning in 121 ms. Found 2 JPA repository interfaces.
+[INFO] 2025-02-28 00:49:58 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:49:58 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:49:58 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 00:49:58 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 00:49:58 - Finished Spring Data repository scanning in 12 ms. Found 1 MongoDB repository interface.
+[INFO] 2025-02-28 00:49:58 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 00:49:58 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[INFO] 2025-02-28 00:49:58 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:49:58 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:49:58 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 00:49:58 - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+[INFO] 2025-02-28 00:49:59 - Tomcat initialized with port 8090 (http)
+[INFO] 2025-02-28 00:49:59 - Initializing ProtocolHandler ["http-nio-8090"]
+[INFO] 2025-02-28 00:49:59 - Starting service [Tomcat]
+[INFO] 2025-02-28 00:49:59 - Starting Servlet engine: [Apache Tomcat/10.1.36]
+[INFO] 2025-02-28 00:49:59 - Initializing Spring embedded WebApplicationContext
+[INFO] 2025-02-28 00:49:59 - Root WebApplicationContext: initialization completed in 2478 ms
+[DEBUG] 2025-02-28 00:49:59 - Filter 'webMvcObservationFilter' configured for use
+[INFO] 2025-02-28 00:50:00 - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO] 2025-02-28 00:50:00 - HHH000412: Hibernate ORM core version 6.6.8.Final
+[INFO] 2025-02-28 00:50:00 - HHH000026: Second-level cache disabled
+[INFO] 2025-02-28 00:50:00 - No LoadTimeWeaver setup: ignoring JPA class transformer
+[INFO] 2025-02-28 00:50:00 - HikariPool-1 - Starting...
+[INFO] 2025-02-28 00:50:00 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3cf92fcd
+[INFO] 2025-02-28 00:50:00 - HikariPool-1 - Start completed.
+[INFO] 2025-02-28 00:50:00 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+[INFO] 2025-02-28 00:50:01 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[INFO] 2025-02-28 00:50:01 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 00:50:02 - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+[INFO] 2025-02-28 00:50:03 - MongoClient with metadata {"application": {"name": "ClusterTopcv"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='topcv', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@7c74019e], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@308e524a, com.mongodb.Jep395RecordCodecProvider@1e9eaa7e, com.mongodb.KotlinCodecProvider@2eece436]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=clustertopcv.nhxhu.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-12cnzd-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@47bb97d9], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='ClusterTopcv', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+[INFO] 2025-02-28 00:50:03 - Adding discovered server clustertopcv-shard-00-01.nhxhu.mongodb.net:27017 to client view of cluster
+[WARN] 2025-02-28 00:50:03 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testNoAuthController' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\controller\TestNoAuthController.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+[INFO] 2025-02-28 00:50:03 - Adding discovered server clustertopcv-shard-00-00.nhxhu.mongodb.net:27017 to client view of cluster
+[INFO] 2025-02-28 00:50:03 - Adding discovered server clustertopcv-shard-00-02.nhxhu.mongodb.net:27017 to client view of cluster
+[WARN] 2025-02-28 00:50:03 - Exception in monitor thread during notification of DNS resolution state change
+com.mongodb.MongoInterruptedException: Interrupted waiting for lock
+	at com.mongodb.internal.thread.InterruptionUtil.interruptAndCreateMongoInterruptedException(InterruptionUtil.java:41)
+	at com.mongodb.internal.Locks.lockInterruptibly(Locks.java:93)
+	at com.mongodb.internal.Locks.checkedWithInterruptibleLock(Locks.java:81)
+	at com.mongodb.internal.Locks.withInterruptibleLock(Locks.java:76)
+	at com.mongodb.internal.Locks.withInterruptibleLock(Locks.java:69)
+	at com.mongodb.internal.connection.BaseCluster.withLock(BaseCluster.java:252)
+	at com.mongodb.internal.connection.AbstractMultiServerCluster.withLock(AbstractMultiServerCluster.java:59)
+	at com.mongodb.internal.connection.BaseCluster.updateDescription(BaseCluster.java:224)
+	at com.mongodb.internal.connection.AbstractMultiServerCluster.updateDescription(AbstractMultiServerCluster.java:392)
+	at com.mongodb.internal.connection.AbstractMultiServerCluster.lambda$initialize$0(AbstractMultiServerCluster.java:105)
+	at com.mongodb.internal.Locks.lambda$withInterruptibleLock$1(Locks.java:70)
+	at com.mongodb.internal.Locks.checkedWithInterruptibleLock(Locks.java:83)
+	at com.mongodb.internal.Locks.withInterruptibleLock(Locks.java:76)
+	at com.mongodb.internal.Locks.withInterruptibleLock(Locks.java:69)
+	at com.mongodb.internal.connection.BaseCluster.withLock(BaseCluster.java:252)
+	at com.mongodb.internal.connection.AbstractMultiServerCluster.withLock(AbstractMultiServerCluster.java:59)
+	at com.mongodb.internal.connection.AbstractMultiServerCluster.initialize(AbstractMultiServerCluster.java:101)
+	at com.mongodb.internal.connection.DnsMultiServerCluster$1.initialize(DnsMultiServerCluster.java:54)
+	at com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:89)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.InterruptedException: null
+	at java.base/java.util.concurrent.locks.ReentrantLock$Sync.lockInterruptibly(ReentrantLock.java:159)
+	at java.base/java.util.concurrent.locks.ReentrantLock.lockInterruptibly(ReentrantLock.java:372)
+	at com.mongodb.internal.Locks.lockInterruptibly(Locks.java:91)
+	... 18 common frames omitted
+[INFO] 2025-02-28 00:50:03 - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 00:50:03 - HikariPool-1 - Shutdown initiated...
+[INFO] 2025-02-28 00:50:03 - HikariPool-1 - Shutdown completed.
+[INFO] 2025-02-28 00:50:03 - Stopping service [Tomcat]
+[INFO] 2025-02-28 00:50:03 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[ERROR] 2025-02-28 00:50:03 - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testNoAuthController' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\controller\TestNoAuthController.class]: Unsatisfied dependency expressed through constructor parameter 3: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.example.Job.JobApplication.main(JobApplication.java:13)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testChatService' defined in file [D:\2024\ivc\github\topcv-backend\target\classes\com\example\Job\service\Test\TestChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1606)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ITestChatRepository' defined in com.example.Job.repository.Test.ITestChatRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1460)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1664)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 37 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'mongoTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryDependentConfiguration.class]: Unsatisfied dependency expressed through method 'mongoTemplate' parameter 0: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 51 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/autoconfigure/data/mongo/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1664)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:199)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 75 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Database name must not be empty
+	at org.springframework.util.Assert.hasText(Assert.java:253)
+	at org.springframework.data.mongodb.core.MongoDatabaseFactorySupport.<init>(MongoDatabaseFactorySupport.java:67)
+	at org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory.<init>(SimpleMongoClientDatabaseFactory.java:75)
+	at org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory.<init>(SimpleMongoClientDatabaseFactory.java:64)
+	at org.springframework.boot.autoconfigure.data.mongo.MongoDatabaseFactoryConfiguration.mongoDatabaseFactory(MongoDatabaseFactoryConfiguration.java:52)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+	... 78 common frames omitted
+[INFO] 2025-02-28 01:22:26 - HV000001: Hibernate Validator 8.0.2.Final
+[INFO] 2025-02-28 01:22:26 - Starting JobApplication using Java 21.0.5 with PID 16892 (D:\2024\ivc\github\topcv-backend\target\classes started by ACER in D:\2024\ivc\github\topcv-backend)
+[INFO] 2025-02-28 01:22:26 - No active profile set, falling back to 1 default profile: "default"
+[INFO] 2025-02-28 01:22:26 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO] 2025-02-28 01:22:26 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO] 2025-02-28 01:22:27 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 01:22:27 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO] 2025-02-28 01:22:27 - Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+[INFO] 2025-02-28 01:22:27 - Finished Spring Data repository scanning in 136 ms. Found 2 JPA repository interfaces.
+[INFO] 2025-02-28 01:22:27 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 01:22:27 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+[INFO] 2025-02-28 01:22:27 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 01:22:27 - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+[INFO] 2025-02-28 01:22:27 - Finished Spring Data repository scanning in 11 ms. Found 1 MongoDB repository interface.
+[INFO] 2025-02-28 01:22:27 - Multiple Spring Data modules found, entering strict repository configuration mode
+[INFO] 2025-02-28 01:22:27 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[INFO] 2025-02-28 01:22:27 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.JobRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 01:22:27 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.Test.ITestChatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 01:22:27 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.Job.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[INFO] 2025-02-28 01:22:27 - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+[INFO] 2025-02-28 01:22:28 - Tomcat initialized with port 8090 (http)
+[INFO] 2025-02-28 01:22:28 - Initializing ProtocolHandler ["http-nio-8090"]
+[INFO] 2025-02-28 01:22:28 - Starting service [Tomcat]
+[INFO] 2025-02-28 01:22:28 - Starting Servlet engine: [Apache Tomcat/10.1.36]
+[INFO] 2025-02-28 01:22:28 - Initializing Spring embedded WebApplicationContext
+[INFO] 2025-02-28 01:22:28 - Root WebApplicationContext: initialization completed in 2511 ms
+[DEBUG] 2025-02-28 01:22:29 - Filter 'webMvcObservationFilter' configured for use
+[INFO] 2025-02-28 01:22:29 - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO] 2025-02-28 01:22:29 - HHH000412: Hibernate ORM core version 6.6.8.Final
+[INFO] 2025-02-28 01:22:29 - HHH000026: Second-level cache disabled
+[INFO] 2025-02-28 01:22:29 - No LoadTimeWeaver setup: ignoring JPA class transformer
+[INFO] 2025-02-28 01:22:29 - HikariPool-1 - Starting...
+[INFO] 2025-02-28 01:22:29 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1e9303b5
+[INFO] 2025-02-28 01:22:29 - HikariPool-1 - Start completed.
+[INFO] 2025-02-28 01:22:29 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+[INFO] 2025-02-28 01:22:30 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[INFO] 2025-02-28 01:22:30 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 01:22:31 - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+[INFO] 2025-02-28 01:22:31 - MongoClient with metadata {"application": {"name": "ClusterTopcv"}, "driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.2.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.5+9-LTS-239"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='topcv', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@6804f9b2], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@3d83eadb, com.mongodb.Jep395RecordCodecProvider@6ce57a78, com.mongodb.KotlinCodecProvider@5660fd1c]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=clustertopcv.nhxhu.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-12cnzd-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@1eb54b91], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='ClusterTopcv', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+[INFO] 2025-02-28 01:22:31 - Adding discovered server clustertopcv-shard-00-01.nhxhu.mongodb.net:27017 to client view of cluster
+[INFO] 2025-02-28 01:22:31 - Adding discovered server clustertopcv-shard-00-00.nhxhu.mongodb.net:27017 to client view of cluster
+[INFO] 2025-02-28 01:22:31 - Adding discovered server clustertopcv-shard-00-02.nhxhu.mongodb.net:27017 to client view of cluster
+[INFO] 2025-02-28 01:22:32 - LiveReload server is running on port 35729
+[WARN] 2025-02-28 01:22:32 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[WARN] 2025-02-28 01:22:32 - One of the patterns in [/api/v1/auth/**, /swagger-ui/**, /v3/api-docs/**, /api/v1/test-no-auth/**, /storage/**, /api/v1/jobs/**, api/v1/companies/**, api/v1/email/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+[DEBUG] 2025-02-28 01:22:33 - 17 mappings in 'requestMappingHandlerMapping'
+[INFO] 2025-02-28 01:22:33 - Monitor thread successfully connected to server with description ServerDescription{address=clustertopcv-shard-00-01.nhxhu.mongodb.net:27017, type=REPLICA_SET_PRIMARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=780064700, minRoundTripTimeNanos=0, setName='atlas-12cnzd-shard-0', canonicalAddress=clustertopcv-shard-00-01.nhxhu.mongodb.net:27017, hosts=[clustertopcv-shard-00-02.nhxhu.mongodb.net:27017, clustertopcv-shard-00-00.nhxhu.mongodb.net:27017, clustertopcv-shard-00-01.nhxhu.mongodb.net:27017], passives=[], arbiters=[], primary='clustertopcv-shard-00-01.nhxhu.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='use1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='US_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff00000000000001ed, setVersion=151, topologyVersion=TopologyVersion{processId=67be582fa9de76398115386c, counter=9}, lastWriteDate=Fri Feb 28 01:21:26 ICT 2025, lastUpdateTimeNanos=160238551814600}
+[INFO] 2025-02-28 01:22:33 - Monitor thread successfully connected to server with description ServerDescription{address=clustertopcv-shard-00-00.nhxhu.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=778888400, minRoundTripTimeNanos=0, setName='atlas-12cnzd-shard-0', canonicalAddress=clustertopcv-shard-00-00.nhxhu.mongodb.net:27017, hosts=[clustertopcv-shard-00-02.nhxhu.mongodb.net:27017, clustertopcv-shard-00-00.nhxhu.mongodb.net:27017, clustertopcv-shard-00-01.nhxhu.mongodb.net:27017], passives=[], arbiters=[], primary='clustertopcv-shard-00-01.nhxhu.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='use1-az6'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='US_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=151, topologyVersion=TopologyVersion{processId=67be58e2c437c3e08bbc7615, counter=5}, lastWriteDate=Fri Feb 28 01:21:26 ICT 2025, lastUpdateTimeNanos=160238551814500}
+[INFO] 2025-02-28 01:22:33 - Monitor thread successfully connected to server with description ServerDescription{address=clustertopcv-shard-00-02.nhxhu.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=780062600, minRoundTripTimeNanos=0, setName='atlas-12cnzd-shard-0', canonicalAddress=clustertopcv-shard-00-02.nhxhu.mongodb.net:27017, hosts=[clustertopcv-shard-00-02.nhxhu.mongodb.net:27017, clustertopcv-shard-00-00.nhxhu.mongodb.net:27017, clustertopcv-shard-00-01.nhxhu.mongodb.net:27017], passives=[], arbiters=[], primary='clustertopcv-shard-00-01.nhxhu.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='use1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='US_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=151, topologyVersion=TopologyVersion{processId=67be59f723ab4eec7c0fcd9a, counter=5}, lastWriteDate=Fri Feb 28 01:21:26 ICT 2025, lastUpdateTimeNanos=160238551814600}
+[INFO] 2025-02-28 01:22:33 - Discovered replica set primary clustertopcv-shard-00-01.nhxhu.mongodb.net:27017 with max election id 7fffffff00000000000001ed and max set version 151
+[DEBUG] 2025-02-28 01:22:33 - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+[INFO] 2025-02-28 01:22:33 - Exposing 1 endpoint beneath base path '/actuator'
+[DEBUG] 2025-02-28 01:22:34 - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+[DEBUG] 2025-02-28 01:22:34 - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+[INFO] 2025-02-28 01:22:35 - Starting ProtocolHandler ["http-nio-8090"]
+[INFO] 2025-02-28 01:22:35 - Tomcat started on port 8090 (http) with context path '/'
+[INFO] 2025-02-28 01:22:35 - Started JobApplication in 9.706 seconds (process running for 10.071)
+[INFO] 2025-02-28 01:22:36 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO] 2025-02-28 01:22:36 - Initializing Servlet 'dispatcherServlet'
+[DEBUG] 2025-02-28 01:22:36 - Detected StandardServletMultipartResolver
+[DEBUG] 2025-02-28 01:22:36 - Detected AcceptHeaderLocaleResolver
+[DEBUG] 2025-02-28 01:22:36 - Detected FixedThemeResolver
+[DEBUG] 2025-02-28 01:22:36 - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6497d0af
+[DEBUG] 2025-02-28 01:22:36 - Detected org.springframework.web.servlet.support.SessionFlashMapManager@197c9b0c
+[DEBUG] 2025-02-28 01:22:36 - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+[INFO] 2025-02-28 01:22:36 - Completed initialization in 4 ms
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/index.html", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/index.css", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-ui-bundle.js", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-ui.css", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-ui-standalone-preset.js", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-initializer.js", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-ui-standalone-preset.js", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - GET "/swagger-ui/swagger-ui-bundle.js", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - GET "/v3/api-docs/swagger-config", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to org.springdoc.webmvc.ui.SwaggerConfigResource#openapiJson(HttpServletRequest)
+[DEBUG] 2025-02-28 01:22:36 - Using 'application/json', given [*/*] and supported [application/json]
+[DEBUG] 2025-02-28 01:22:36 - Writing [{configUrl=/v3/api-docs/swagger-config, oauth2RedirectUrl=http://localhost:8090/swagger-ui/oauth2-re (truncated)...]
+[DEBUG] 2025-02-28 01:22:36 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:36 - GET "/v3/api-docs", parameters={}
+[DEBUG] 2025-02-28 01:22:36 - Mapped to org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson(HttpServletRequest, String, Locale)
+[INFO] 2025-02-28 01:22:37 - Init duration for springdoc-openapi is: 386 ms
+[DEBUG] 2025-02-28 01:22:37 - Using 'application/json', given [application/json, */*] and supported [application/json]
+[DEBUG] 2025-02-28 01:22:37 - Writing [{123, 34, 111, 112, 101, 110, 97, 112, 105, 34, 58, 34, 51, 46, 48, 46, 49, 34, 44, 34, 105, 110, 10 (truncated)...]
+[DEBUG] 2025-02-28 01:22:37 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:38 - GET "/swagger-ui/swagger-initializer.js", parameters={}
+[DEBUG] 2025-02-28 01:22:38 - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+[DEBUG] 2025-02-28 01:22:38 - Completed 200 OK
+[DEBUG] 2025-02-28 01:22:55 - POST "/api/v1/test-no-auth/test-create-chat", parameters={}
+[DEBUG] 2025-02-28 01:22:55 - Mapped to com.example.Job.controller.TestNoAuthController#TestCreateChat()
+[DEBUG] 2025-02-28 01:22:57 - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json, application/yaml]
+[DEBUG] 2025-02-28 01:22:57 - Writing ["Success"]
+[DEBUG] 2025-02-28 01:22:57 - Completed 200 OK
+[INFO] 2025-02-28 01:23:26 - Commencing graceful shutdown. Waiting for active requests to complete
+[INFO] 2025-02-28 01:23:26 - Graceful shutdown complete
+[INFO] 2025-02-28 01:23:26 - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO] 2025-02-28 01:23:26 - HikariPool-1 - Shutdown initiated...
+[INFO] 2025-02-28 01:23:26 - HikariPool-1 - Shutdown completed.
