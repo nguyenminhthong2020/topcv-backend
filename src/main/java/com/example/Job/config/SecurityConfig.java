@@ -32,7 +32,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        String whiteList[] = { "/api/v1/auth/**", "/api/v1/test/**", "/storage/**", "/api/v1/jobs/**",
+        String whiteList[] = { "/api/v1/auth/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/api/v1/test-no-auth/**", "/storage/**", "/api/v1/jobs/**",
                 "api/v1/companies/**", "api/v1/email/**" };
 
         http.authorizeHttpRequests(configurer -> configurer

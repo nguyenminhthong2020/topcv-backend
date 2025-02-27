@@ -7,8 +7,10 @@ import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.security.JwtAuthResponse;
 import com.example.Job.security.JwtTokenProvider;
-import com.example.Job.service.AuthService;
-import com.example.Job.service.UserService;
+import com.example.Job.service.interfaces.IAuthService;
+import com.example.Job.service.interfaces.ILogService;
+import com.example.Job.service.interfaces.IUserService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
-import com.example.Job.service.ILogService;
 
 import com.example.Job.annotations.LogRequest;
 // import org.springframework.web.bind.annotation.*;
@@ -37,8 +38,8 @@ import org.springframework.core.env.Environment;
 @LogRequest
 public class AuthController {
 
-    private AuthService authService;
-    private UserService userService;
+    private IAuthService authService;
+    private IUserService userService;
     private JwtTokenProvider jwtTokenProvider;
     private Environment environment;
 
@@ -48,7 +49,7 @@ public class AuthController {
     private long refreshTokenExpiration;
 
     @Autowired
-    public AuthController(AuthService authService, UserService userService,
+    public AuthController(IAuthService authService, IUserService userService,
             JwtTokenProvider jwtTokenProvider, ILogService logServivce, Environment environment) {
         this.authService = authService;
         this.userService = userService;

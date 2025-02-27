@@ -1,4 +1,4 @@
-package com.example.Job.service;
+package com.example.Job.service.interfaces;
 
 public interface ILogService {
     // Ghi log với cấp độ INFO

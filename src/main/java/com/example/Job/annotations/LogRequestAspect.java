@@ -6,12 +6,12 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import com.example.Job.service.interfaces.ILogService;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.example.Job.service.ILogService;
 
 @Aspect
 @Component
@@ -26,8 +26,9 @@ public class LogRequestAspect {
     }
 
     // Áp dụng cho toàn bộ method của Controller có annotation @LogRequest
-    @Pointcut("within(@com.example.Job.annotations.LogRequest *)") 
-    public void loggableControllers() {}
+    @Pointcut("within(@com.example.Job.annotations.LogRequest *)")
+    public void loggableControllers() {
+    }
 
     @Before("loggableControllers()")
     public void logRequestDetails(JoinPoint joinPoint) {
@@ -55,19 +56,20 @@ public class LogRequestAspect {
 
         // Log thông tin
         // System.out.println(String.format(
-        //         "[IP]: %s, [Controller]: %s, [Action]: %s, [URL]: %s, [Params]: %s, [Body]: %s",
-        //         ipAddress, controllerName, actionName, requestURL, queryParams, requestBody
+        // "[IP]: %s, [Controller]: %s, [Action]: %s, [URL]: %s, [Params]: %s, [Body]:
+        // %s",
+        // ipAddress, controllerName, actionName, requestURL, queryParams, requestBody
         // ));
-        
+
         _logService.logInfo(String.format(
                 "[IP]: %s, [Controller]: %s, [Action]: %s, [URL]: %s, [Params]: %s, [Body]: %s",
-                ipAddress, controllerName, actionName, requestURL, queryParams, requestBody
-        ));
+                ipAddress, controllerName, actionName, requestURL, queryParams, requestBody));
     }
 
     private String getRequestBody(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
-        if (args.length == 0) return "N/A";
+        if (args.length == 0)
+            return "N/A";
 
         for (Object arg : args) {
             if (!(arg instanceof HttpServletRequest)) { // Bỏ qua HttpServletRequest

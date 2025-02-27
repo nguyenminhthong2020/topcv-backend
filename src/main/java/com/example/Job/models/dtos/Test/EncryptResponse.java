@@ -1,4 +1,4 @@
-package com.example.Job.models;
+package com.example.Job.models.dtos.Test;
 
 public class EncryptResponse {
     private String encryptText;
