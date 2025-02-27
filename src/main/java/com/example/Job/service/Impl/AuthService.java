@@ -1,5 +1,6 @@
 package com.example.Job.service.Impl;
 
+import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.LoginDto;
 import com.example.Job.models.dtos.RegisterDto;
 import com.example.Job.models.dtos.UserDto;
@@ -10,6 +11,7 @@ import com.example.Job.service.interfaces.IAuthService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class AuthService implements IAuthService {
@@ -53,10 +56,16 @@ public class AuthService implements IAuthService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserDto register(RegisterDto registerDto) {
+    public ResultObject<UserDto> register(RegisterDto registerDto) {
         // add check for email exists in database
         if (userRepository.existsByEmail(registerDto.getEmail())) {
-            throw new RuntimeException("Email is already exist");
+            // throw new RuntimeException("Email is already exist");
+
+            // Rollback thủ công
+            // ở đây tạm không cần vì chưa có thao tác update
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+
+            return new ResultObject<UserDto>(false, "Email is already exist", HttpStatus.BAD_REQUEST, null);
         }
 
         User user = new User();
@@ -71,7 +80,8 @@ public class AuthService implements IAuthService {
         // user.getRoles().add(userRole);
 
         User addedUser = userRepository.save(user);
-        return modelMapper.map(addedUser, UserDto.class);
+
+        return new ResultObject<UserDto>(true, null, HttpStatus.BAD_REQUEST, modelMapper.map(addedUser, UserDto.class));
     }
 
 }

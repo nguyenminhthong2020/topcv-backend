@@ -23,12 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+
 import java.time.LocalDateTime;
 
 import com.example.Job.annotations.LogRequest;
 // import org.springframework.web.bind.annotation.*;
 
 import com.example.Job.models.Result;
+import com.example.Job.models.ResultObject;
 import com.example.Job.utils.DecryptUtil;
 
 import org.springframework.core.env.Environment;
@@ -101,12 +104,23 @@ public class AuthController {
                     .append("\n");
 
             // System.out.println("RegisterDto: " + registerDto);
-            UserDto response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.register(registerDto);
+
+            if (response.isSuccess == false) {
+                ResponseDto errorResponseDto = new ResponseDto.Builder()
+                        .setStatus(response.httpStatus)
+                        .setMessage("Registration failed: " + response.message)
+                        .setData(null)
+                        .build();
+
+                // Trả về ResponseEntity với lỗi
+                return new ResponseEntity<>(errorResponseDto, response.httpStatus);
+            }
 
             ResponseDto responseDto = new ResponseDto.Builder()
                     .setStatus(HttpStatus.CREATED)
                     .setMessage("Register successfully")
-                    .setData(response)
+                    .setData(response.data)
                     .build();
 
             sb.append("\r\tRegister successfully");
@@ -136,7 +150,9 @@ public class AuthController {
      * Password gửi lên là chuỗi đã được mã hóa
      */
     @PostMapping("/secure-register")
-    public ResponseEntity<ResponseDto> secureRegister(@Valid @RequestBody RegisterDto registerDto) {
+    @RateLimiter(name = "perUserRateLimiter", fallbackMethod = "userFallback")
+    // @RateLimiter(name = "globalRateLimiter", fallbackMethod = "globalFallback")
+    public ResultObject<UserDto> secureRegister(@Valid @RequestBody RegisterDto registerDto) {
         StringBuilder sb = new StringBuilder();
         try {
             // Tạo ObjectMapper để chuyển RegisterDto thành chuỗi JSON
@@ -156,34 +172,48 @@ public class AuthController {
             }
 
             registerDto.password = result.getMessage();
-            UserDto response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.register(registerDto);
 
-            ResponseDto responseDto = new ResponseDto.Builder()
-                    .setStatus(HttpStatus.CREATED)
-                    .setMessage("Register successfully")
-                    .setData(response)
-                    .build();
+            if (response.isSuccess == false) {
+                return new ResultObject<>(false,
+                        "Register failed: " + response.message,
+                        response.httpStatus,
+                        null);
+            }
 
             sb.append("\r\tRegister successfully");
 
             _logService.logInfo(sb.toString());
 
-            return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+            return new ResultObject<>(true,
+                    "Register successfully",
+                    HttpStatus.CREATED,
+                    response.data);
         } catch (Exception e) { // sẽ fix lại chỗ try catch này
             e.printStackTrace();
 
             // Ghi log lỗi
             _logService.logError("Registration error", e);
 
-            // Tạo ResponseDto cho trường hợp lỗi
-            ResponseDto errorResponseDto = new ResponseDto.Builder()
-                    .setStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .setMessage("Registration failed: " + e.getMessage())
-                    .setData(null)
-                    .build();
-
-            // Trả về ResponseEntity với lỗi
-            return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResultObject<>(false,
+                    "Register failed: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
         }
+    }
+
+    // Fallback cho giới hạn mỗi người dùng
+    public ResultObject<UserDto> userFallback(RegisterDto registerDto, Throwable t) {
+        return new ResultObject<UserDto>(false,
+                "You've exceeded your request limit. Please try again later.",
+                HttpStatus.TOO_MANY_REQUESTS,
+                null);
+    }
+
+    public ResultObject<UserDto> globalFallback(RegisterDto registerDto, Throwable t) {
+        return new ResultObject<UserDto>(false,
+                "System is busy due to high traffic. Please try again later.",
+                HttpStatus.TOO_MANY_REQUESTS,
+                null);
     }
 }
