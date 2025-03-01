@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload & Search Image</title>
+  </head>
+  <body>
+    <h2>Upload Ảnh</h2>
+    <input type="file" id="imageInput" />
+    <button onclick="uploadImage()">Upload</button>
+    <div style="margin-bottom: 100px"></div>
+
+    <h2>Tìm Ảnh</h2>
+    <input type="text" id="searchInput" placeholder="Nhập tên ảnh..." />
+    <button onclick="searchImage()">Tìm kiếm</button>
+
+    <h3>Ảnh tìm được:</h3>
+    <img
+      id="foundImage"
+      src=""
+      alt="Chưa tìm thấy ảnh"
+      style="max-width: 300px; display: none"
+    />
+
+    <script>
+      async function uploadImage() {
+        const fileInput = document.getElementById("imageInput");
+        if (fileInput.files.length === 0) {
+          alert("Vui lòng chọn ảnh!");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+
+        try {
+          const response = await fetch(
+            "http://localhost:8090/api/upload/avatar",
+            {
+              method: "POST",
+              headers: {
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aG9uZ0BnbWFpbC5jb20iLCJleHAiOjE3NDE0Mjk1NjAsImlhdCI6MTc0MDgyNDc2MCwidXNlciI6eyJpZCI6MiwiZW1haWwiOiJ0aG9uZ0BnbWFpbC5jb20iLCJuYW1lIjoidGhvbmciLCJyb2xlIjpudWxsfX0.2380jhTVqX_d2HJOohZYABJbltoc2pmLHR-fa1QWvyRGp21zvsUg3pWUz1m8vagdWZlSeNkweElRI2hf5AjWDw",
+              },
+              body: formData,
+            }
+          );
+
+          const result = await response.json();
+          alert("Upload thành công! URL: " + result.secure_url);
+        } catch (error) {
+          alert("Lỗi upload: " + error.message);
+        }
+      }
+
+      async function searchImage() {
+        const searchText = document.getElementById("searchInput").value.trim();
+        if (!searchText) {
+          alert("Vui lòng nhập từ khóa tìm kiếm!");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:8090/api/upload/search?name=${searchText}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aG9uZ0BnbWFpbC5jb20iLCJleHAiOjE3NDE0Mjk1NjAsImlhdCI6MTc0MDgyNDc2MCwidXNlciI6eyJpZCI6MiwiZW1haWwiOiJ0aG9uZ0BnbWFpbC5jb20iLCJuYW1lIjoidGhvbmciLCJyb2xlIjpudWxsfX0.2380jhTVqX_d2HJOohZYABJbltoc2pmLHR-fa1QWvyRGp21zvsUg3pWUz1m8vagdWZlSeNkweElRI2hf5AjWDw",
+              },
+            }
+          );
+
+          const result = await response.json();
+          if (Array.isArray(result) && result.length > 0) {
+            document.getElementById("foundImage").src = result[0]; // Chọn ảnh đầu tiên
+            document.getElementById("foundImage").style.display = "block";
+          } else {
+            alert("Không tìm thấy ảnh!");
+          }
+        } catch (error) {
+          alert("Lỗi tìm kiếm: " + error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
