@@ -15,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 import com.example.Job.interceptors.WebSocketAuthInterceptor;
 
@@ -47,28 +48,28 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-        // register an Interceptor for validate websocket channel connection because can’t send Authorization headers in the handshake phase
+        // register an Interceptor for validate websocket channel connection because
+        // can’t send Authorization headers in the handshake phase
         registration.interceptors(new ChannelInterceptor() {
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
                 StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
-                if(StompCommand.CONNECT.equals(accessor.getCommand())){
+                if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                     String authToken = accessor.getFirstNativeHeader("Authorization");
 
-                    if(authToken != null && authToken.startsWith("Bearer ")){
+                    if (authToken != null && authToken.startsWith("Bearer ")) {
                         String token = authToken.substring(7);
 
                         String userId = jwtTokenProvider.extractUserIdFromToken(token);
 
-                        if(userId != null){
+                        if (userId != null) {
                             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                                     userId,
                                     null,
-                                    List.of(new SimpleGrantedAuthority("ROLE_USER"))
-                            );
+                                    List.of(new SimpleGrantedAuthority("ROLE_USER")));
                             accessor.setUser(authenticationToken);
-                        }else {
+                        } else {
                             throw new RuntimeException("Invalid token");
                         }
                     }
@@ -77,5 +78,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 return message;
             }
         });
+    }
+
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+        registration
+                // .setTimeToFirstMessage(30_000) // 30s timeout nếu không nhận được tin nhắn
+                // đầu tiên
+                .setSendTimeLimit(20 * 60 * 1000); // 20 phút không hoạt động thì đóng kết nối
     }
 }
