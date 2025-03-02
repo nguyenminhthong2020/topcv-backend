@@ -22,7 +22,9 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
             WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         if (request instanceof ServletServerHttpRequest) {
             HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
+            // the request doesn't have Authorization header so this will always be null
             String authHeader = servletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+
 
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7); // Bỏ "Bearer "
@@ -32,7 +34,8 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
                 }
             }
         }
-        return false; // Từ chối nếu token không hợp lệ
+        // don't reject in the handshake phrase, because we don't have AUTHORIZATION in header
+        return true; // Từ chối nếu token không hợp lệ
     }
 
     @Override

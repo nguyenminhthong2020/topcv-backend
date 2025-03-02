@@ -1,4 +1,4 @@
-package com.example.Job.controller;
+package com.example.Job.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
