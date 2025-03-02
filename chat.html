@@ -92,10 +92,11 @@
 
     <script>
       var token =
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aG9uZ0BnbWFpbC5jb20iLCJleHAiOjE3NDE0Mjk1NjAsImlhdCI6MTc0MDgyNDc2MCwidXNlciI6eyJpZCI6MiwiZW1haWwiOiJ0aG9uZ0BnbWFpbC5jb20iLCJuYW1lIjoidGhvbmciLCJyb2xlIjpudWxsfX0.2380jhTVqX_d2HJOohZYABJbltoc2pmLHR-fa1QWvyRGp21zvsUg3pWUz1m8vagdWZlSeNkweElRI2hf5AjWDw"; // Thay bằng token thật (lấy từ localStorage hoặc cookie)
+        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aWVuQGdtYWlsLmNvbSIsImV4cCI6MTc0MTQ0NTc2NSwiaWF0IjoxNzQwODQwOTY1LCJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRpZW5AZ21haWwuY29tIiwibmFtZSI6InRpZW4iLCJyb2xlIjpudWxsfX0.1wXqFRAf7WnzvYqxbPoYCZ9TwAg_KdWGYQuCusnf5RGHehGfxPKjSQj2KEgCk0kLceV09L84O4b_w2ePVKzQHw";
+        // Thay bằng token thật (lấy từ localStorage hoặc cookie)
 
       function connect() {
-        var socket = new SockJS("http://localhost:8090/ws");
+        var socket = new SockJS("http://localhost:8081/ws");
         var stompClient = Stomp.over(socket);
 
         stompClient.connect(
@@ -106,7 +107,7 @@
             stompClient.subscribe("/topic/messages", function (message) {
               var chatBox = document.getElementById("chat-box");
               var msgElement = document.createElement("p");
-              msgElement.textContent = JSON.parse(message.body);
+              msgElement.textContent = message.body;
               chatBox.appendChild(msgElement);
               chatBox.scrollTop = chatBox.scrollHeight;
             });

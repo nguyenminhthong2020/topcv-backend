@@ -15,8 +15,10 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.Optional;
 
+// Util class for JWT actions
 
 @Component
 public class JwtTokenProvider {
@@ -56,6 +58,30 @@ public class JwtTokenProvider {
             return decodedToken;
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    // Function to extractClaim from JWT token
+    public <T> T extractClaim(String token, String claimName){
+        try{
+            Jwt decodedToken = verifyToken(token);
+            return (T) decodedToken.getClaim(claimName);
+        }catch(RuntimeException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String extractUserIdFromToken(String token){
+        try{
+            Map<String, Object> userClaim = extractClaim(token, "user");
+
+            if(userClaim != null && userClaim.containsKey("id")){
+                return userClaim.get("id").toString();
+            }
+            return null;
+
+        }catch(RuntimeException e){
+            return null;
         }
     }
 
