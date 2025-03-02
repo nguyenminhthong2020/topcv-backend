@@ -14,4 +14,10 @@ public class ChatController {
         String username = (String) headerAccessor.getSessionAttributes().get("user");
         return username + ": " + message;
     }
+
+    // @MessageMapping("/ping")
+    // public void handlePing(String message) {
+    // // Chỉ cần nhận là đủ, không cần phản hồi
+    // System.out.println("Received ping: " + message);
+    // }
 }
