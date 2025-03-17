@@ -13,14 +13,13 @@ import java.util.List;
 @Table(name =  "companies")
 //@PrimaryKeyJoinColumn(name = "company_id")
 @AllArgsConstructor
-//@NoArgsConstructor
 @Getter
 @Setter
 @Builder
 public class Company extends Account {
 
 
-    private String name;
+//    private String name;
 
     private String overview;
 

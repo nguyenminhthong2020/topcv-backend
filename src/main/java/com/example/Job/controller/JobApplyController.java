@@ -1,31 +1,22 @@
 package com.example.Job.controller;
 
-import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.JobApplyRequest;
-import com.example.Job.models.dtos.RegisterDto;
 import com.example.Job.models.dtos.ResponseDto;
-import com.example.Job.models.dtos.UserDto;
-import com.example.Job.service.Impl.ApplyService;
 import com.example.Job.service.interfaces.IApplyService;
 import com.example.Job.service.interfaces.ILogService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
-
 @RequestMapping("/api/v1/apply")
 @RestController
-public class ResumeController {
+public class JobApplyController {
 
     private IApplyService applyService;
     private ILogService _logService;
 
-    public ResumeController(IApplyService applyService, ILogService _logService) {
+    public JobApplyController(IApplyService applyService, ILogService _logService) {
         this.applyService = applyService;
         this._logService = _logService;
     }
@@ -78,7 +69,7 @@ public class ResumeController {
             e.printStackTrace();
 
             // Ghi log lỗi
-            _logService.logError("Registration error", e);
+            _logService.logError("Apply error", e);
 
             // Tạo ResponseDto cho trường hợp lỗi
             ResponseDto errorResponseDto = new ResponseDto.Builder()

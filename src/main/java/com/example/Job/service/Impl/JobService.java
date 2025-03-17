@@ -31,10 +31,26 @@ public class JobService implements IJobService {
     public JobDto createJob(JobDto jobCreateRequest) {
         Company company = companyRepository.findById(jobCreateRequest.getCompanyId())
                 .orElseThrow(() ->  new ResourceNotFoundException("Company", "id", jobCreateRequest.getCompanyId()));
-
-
-        Job newJob = modelMapper.map(jobCreateRequest, Job.class);
-        newJob.setCompany(company);
+//
+//        Company company1 = new Company();
+//        company1.setId(jobCreateRequest.getCompanyId());
+//        Job newJob = modelMapper.map(jobCreateRequest, Job.class);
+        Job newJob = Job.builder()
+                .jobType(jobCreateRequest.getJobType())
+                .active(jobCreateRequest.isActive())
+                .level(jobCreateRequest.getLevel())
+                .description(jobCreateRequest.getDescription())
+                .name(jobCreateRequest.getName())
+                .quantity(jobCreateRequest.getQuantity())
+                .salaryFrom(jobCreateRequest.getSalaryFrom())
+                .salaryTo(jobCreateRequest.getSalaryTo())
+                .yearOfExperience(jobCreateRequest.getYearOfExperience())
+                .startDate(jobCreateRequest.getStartDate())
+                .endDate(jobCreateRequest.getEndDate())
+                .location(jobCreateRequest.getLocation())
+                .company(company)
+                .build();
+//        newJob.setCompany(company);
 
         Job savedJob = jobRepository.save(newJob);
 

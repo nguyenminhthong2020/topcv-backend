@@ -7,11 +7,11 @@ import lombok.*;
 @Entity
 @Table(name = "accounts")
 @Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 
 public abstract class Account {
-
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "account_seq")
@@ -25,7 +25,11 @@ public abstract class Account {
     @Column(name = "password", nullable = false)
     protected String password;
 
+    @Column(name = "name", nullable = true)
+    protected String name;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "role", insertable = false, updatable = false) //  Prevent duplicate mapping
     protected RoleEnum role;
     protected Account() {}
 

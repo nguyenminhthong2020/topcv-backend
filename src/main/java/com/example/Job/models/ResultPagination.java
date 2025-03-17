@@ -3,6 +3,7 @@ package com.example.Job.models;
 import org.springframework.http.HttpStatus;
 import java.util.List;
 
+
 public class ResultPagination<T> {
     public boolean isSuccess;
     public String message;
