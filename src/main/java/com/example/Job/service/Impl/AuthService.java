@@ -1,5 +1,6 @@
 package com.example.Job.service.Impl;
 
+import com.example.Job.constant.RoleEnum;
 import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.LoginDto;
 import com.example.Job.models.dtos.RegisterDto;
@@ -56,7 +57,7 @@ public class AuthService implements IAuthService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultObject<UserDto> register(RegisterDto registerDto) {
+    public ResultObject<UserDto> registerUser(RegisterDto registerDto) {
         // add check for email exists in database
         if (userRepository.existsByEmail(registerDto.getEmail())) {
             // throw new RuntimeException("Email is already exist");
@@ -74,14 +75,15 @@ public class AuthService implements IAuthService {
         user.setBirthday(registerDto.getBirthday());
         user.setGender(registerDto.getGender());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        user.setRole(registerDto.getRole());
+
+        user.setRole( registerDto.getRole() != null ? registerDto.getRole() : RoleEnum.USER);
 
         // Role userRole = roleRepository.findByName("USER").get();
         // user.getRoles().add(userRole);
 
         User addedUser = userRepository.save(user);
 
-        return new ResultObject<UserDto>(true, null, HttpStatus.BAD_REQUEST, modelMapper.map(addedUser, UserDto.class));
+        return new ResultObject<UserDto>(true, null, HttpStatus.CREATED, modelMapper.map(addedUser, UserDto.class));
     }
 
 }

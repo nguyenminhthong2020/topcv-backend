@@ -9,6 +9,6 @@ import com.example.Job.entity.User;
 public interface IAuthService {
     String login(LoginDto loginDto, User user);
 
-    ResultObject<UserDto> register(RegisterDto registerDto);
+    ResultObject<UserDto> registerUser(RegisterDto registerDto);
 
 }

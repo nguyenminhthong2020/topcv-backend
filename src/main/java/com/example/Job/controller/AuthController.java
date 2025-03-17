@@ -104,7 +104,7 @@ public class AuthController {
                     .append("\n");
 
             // System.out.println("RegisterDto: " + registerDto);
-            ResultObject<UserDto> response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.registerUser(registerDto);
 
             if (response.isSuccess == false) {
                 ResponseDto errorResponseDto = new ResponseDto.Builder()
@@ -172,7 +172,7 @@ public class AuthController {
             }
 
             registerDto.password = result.getMessage();
-            ResultObject<UserDto> response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.registerUser(registerDto);
 
             if (response.isSuccess == false) {
                 return new ResultObject<>(false,
