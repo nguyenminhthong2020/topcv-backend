@@ -17,6 +17,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import com.example.Job.interceptors.WebSocketAuthInterceptor;
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 import java.util.List;
 
@@ -78,4 +79,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
             }
         });
     }
+
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+        registration
+                // .setTimeToFirstMessage(30_000) // 30s timeout nếu không nhận được tin nhắn
+                // đầu tiên
+                .setSendTimeLimit(20 * 60 * 1000); // 20 phút không hoạt động thì đóng kết nối
+    }
+
 }
