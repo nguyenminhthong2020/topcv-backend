@@ -26,10 +26,11 @@ public class CloudinaryService implements IStorageService {
             Map uploadedFile = cloudinary.uploader().upload(file.getBytes(),
                     ObjectUtils.asMap(
                             "folder", folder,
-                            "public_id", fileName
+                            "public_id", fileName,
+                            "resource_type", "raw"
                     )
             );
-            return uploadedFile;
+            return uploadedFile.get("url");
 
         } catch (IOException e) {
             return "Upload failed";

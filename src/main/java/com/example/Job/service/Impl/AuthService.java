@@ -1,6 +1,7 @@
 package com.example.Job.service.Impl;
 
 import com.example.Job.constant.RoleEnum;
+import com.example.Job.entity.Account;
 import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.LoginDto;
 import com.example.Job.models.dtos.RegisterDto;
@@ -42,7 +43,7 @@ public class AuthService implements IAuthService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String login(LoginDto loginDto, User user) {
+    public String login(LoginDto loginDto, Account user) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(), loginDto.getPassword());
         Authentication authentication = authenticationManager.authenticate(token);

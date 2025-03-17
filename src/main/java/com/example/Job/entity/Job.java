@@ -4,9 +4,7 @@ import com.example.Job.constant.JobTypeEnum;
 import com.example.Job.constant.LevelEnum;
 import com.example.Job.security.JwtTokenProvider;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -17,6 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

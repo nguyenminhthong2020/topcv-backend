@@ -1,6 +1,7 @@
 package com.example.Job.entity;
 
 import com.example.Job.constant.ApplyStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,14 +35,19 @@ public class JobApply {
 
     @ManyToOne
     @JoinColumn(name = "applicant_id")
+    @JsonIgnore
     private User applicant;
 
     @ManyToOne
-    @JoinColumn(name = "job_id")
+    @JsonIgnore
     private Job job;
 
     @PrePersist
-    private void beforeCreate(){
+    private void beforeCreate()
+    {
+        if(this.applyStatus == null){
+            this.applyStatus = ApplyStatusEnum.PENDING;
+        }
         this.applyDate = Instant.now();
     }
 }
