@@ -1,4 +1,4 @@
-package com.example.Job.interceptors;
+package com.example.Job.Interceptors;
 
 import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +25,7 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
             // the request doesn't have Authorization header so this will always be null
             String authHeader = servletRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
+
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7); // Bỏ "Bearer "
                 if (validateToken(token)) {
@@ -33,8 +34,7 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
                 }
             }
         }
-        // don't reject in the handshake phrase, because we don't have AUTHORIZATION in
-        // header
+        // don't reject in the handshake phrase, because we don't have AUTHORIZATION in header
         return true; // Từ chối nếu token không hợp lệ
     }
 

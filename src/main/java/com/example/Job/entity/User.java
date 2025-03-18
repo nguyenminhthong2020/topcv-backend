@@ -9,27 +9,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+//@PrimaryKeyJoinColumn(name = "user_id")
+//@AllArgsConstructor
+//@NoArgsConstructor
+public class User extends Account{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "password", nullable = false)
-    private String password;
+//    @Column(name = "name", nullable = false)
+//    private String name;
 
     @Column(name = "birthday")
     private Date birthday;
@@ -38,7 +31,19 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private GenderEnum gender;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
+    private Set<JobApply> jobApplies = new HashSet<>();
 
+    public User() {
+        super();
+        this.role = RoleEnum.USER;
+    }
+
+    // Constructor with fields
+    public User(String email, String password, String name, Date birthday, GenderEnum gender) {
+        super(email, password, RoleEnum.USER);
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
+    }
 }
