@@ -1,5 +1,6 @@
 package com.example.Job.config;
 
+import com.example.Job.Interceptors.WebSocketAuthInterceptor;
 import com.example.Job.security.JwtTokenProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -16,7 +17,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import com.example.Job.interceptors.WebSocketAuthInterceptor;
+
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 import java.util.List;
