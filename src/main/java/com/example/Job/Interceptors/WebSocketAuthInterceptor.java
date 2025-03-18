@@ -1,4 +1,4 @@
-package com.example.Job.interceptors;
+package com.example.Job.Interceptors;
 
 import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
