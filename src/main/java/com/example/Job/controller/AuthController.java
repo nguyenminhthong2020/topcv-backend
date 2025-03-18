@@ -1,5 +1,6 @@
 package com.example.Job.controller;
 
+import com.example.Job.entity.Account;
 import com.example.Job.models.dtos.LoginDto;
 import com.example.Job.models.dtos.RegisterDto;
 import com.example.Job.models.dtos.ResponseDto;
@@ -7,6 +8,7 @@ import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.security.JwtAuthResponse;
 import com.example.Job.security.JwtTokenProvider;
+import com.example.Job.service.interfaces.IAccountService;
 import com.example.Job.service.interfaces.IAuthService;
 import com.example.Job.service.interfaces.ILogService;
 import com.example.Job.service.interfaces.IUserService;
@@ -43,6 +45,7 @@ public class AuthController {
 
     private IAuthService authService;
     private IUserService userService;
+    private IAccountService accountService;
     private JwtTokenProvider jwtTokenProvider;
     private Environment environment;
 
@@ -53,20 +56,23 @@ public class AuthController {
 
     @Autowired
     public AuthController(IAuthService authService, IUserService userService,
-            JwtTokenProvider jwtTokenProvider, ILogService logServivce, Environment environment) {
+            JwtTokenProvider jwtTokenProvider, ILogService logServivce, Environment environment, IAccountService accountService) {
         this.authService = authService;
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
         this._logService = logServivce;
         this.environment = environment;
+        this.accountService = accountService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginDto loginDto) {
 
-        User user = userService.getUserByEmail(loginDto.getUsernameOrEmail());
+//        Account user = userService.getUserByEmail(loginDto.getUsernameOrEmail());
+        Account user = accountService.getAccountByEmail(loginDto.getUsernameOrEmail());
+
         JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(
-                user.getId(), user.getEmail(), user.getName());
+                user.getId(), user.getEmail(), user.getName(), user.getRole());
 
         String accessToken = authService.login(loginDto, user);
 
@@ -74,9 +80,9 @@ public class AuthController {
         jwtAuthResponse.setAccessToken(accessToken);
         jwtAuthResponse.setUserLogin(userLogin);
 
-        String refreshToken = jwtTokenProvider.createRefreshToken(loginDto.getUsernameOrEmail(), jwtAuthResponse);
+//        String refreshToken = jwtTokenProvider.createRefreshToken(loginDto.getUsernameOrEmail(), jwtAuthResponse);
 
-        userService.updateUserToken(refreshToken, loginDto.getUsernameOrEmail());
+//        userService.updateUserToken(refreshToken, loginDto.getUsernameOrEmail());
 
         // ResponseCookie responseCookie = ResponseCookie
         // .from("refreshToken", refreshToken)
@@ -104,7 +110,7 @@ public class AuthController {
                     .append("\n");
 
             // System.out.println("RegisterDto: " + registerDto);
-            ResultObject<UserDto> response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.registerUser(registerDto);
 
             if (response.isSuccess == false) {
                 ResponseDto errorResponseDto = new ResponseDto.Builder()
@@ -172,7 +178,7 @@ public class AuthController {
             }
 
             registerDto.password = result.getMessage();
-            ResultObject<UserDto> response = authService.register(registerDto);
+            ResultObject<UserDto> response = authService.registerUser(registerDto);
 
             if (response.isSuccess == false) {
                 return new ResultObject<>(false,

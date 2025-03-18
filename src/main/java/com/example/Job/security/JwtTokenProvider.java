@@ -1,6 +1,6 @@
 package com.example.Job.security;
 
-import com.example.Job.entity.User;
+import com.example.Job.entity.Account;
 import com.nimbusds.jose.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -85,12 +85,12 @@ public class JwtTokenProvider {
         }
     }
 
-    public String createAccessToken( User user){
+    public String createAccessToken( Account user){
 
         Instant now = Instant.now();
         Instant validity = now.plus(accessTokenExpiration, ChronoUnit.SECONDS);
 
-        JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(user.getId(), user.getEmail(), user.getName());
+        JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(user.getId(), user.getEmail(), user.getName(), user.getRole());
 
 
         JwtClaimsSet claims = JwtClaimsSet.builder()

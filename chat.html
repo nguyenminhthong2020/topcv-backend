@@ -64,10 +64,10 @@
     <script>
       var token =
         "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aWVuQGdtYWlsLmNvbSIsImV4cCI6MTc0MTQ0NTc2NSwiaWF0IjoxNzQwODQwOTY1LCJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRpZW5AZ21haWwuY29tIiwibmFtZSI6InRpZW4iLCJyb2xlIjpudWxsfX0.1wXqFRAf7WnzvYqxbPoYCZ9TwAg_KdWGYQuCusnf5RGHehGfxPKjSQj2KEgCk0kLceV09L84O4b_w2ePVKzQHw";
-      // Thay bằng token thật (lấy từ localStorage hoặc cookie)
+        // Thay bằng token thật (lấy từ localStorage hoặc cookie)
 
       function connect() {
-        var socket = new SockJS("http://localhost:8090/ws");
+        var socket = new SockJS("http://localhost:8081/ws");
         var stompClient = Stomp.over(socket);
 
         stompClient.connect(

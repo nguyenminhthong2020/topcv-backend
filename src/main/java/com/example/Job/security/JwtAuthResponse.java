@@ -1,6 +1,9 @@
 package com.example.Job.security;
 
+import com.example.Job.constant.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 // dto class for jwt login response
 public class JwtAuthResponse
@@ -9,7 +12,7 @@ public class JwtAuthResponse
     private String accessToken;
 
     @JsonProperty("user")
-    UserLogin user;
+    private UserLogin user;
 
     public JwtAuthResponse(String accessToken) {
         this.accessToken = accessToken;
@@ -34,49 +37,22 @@ public class JwtAuthResponse
         this.user = userLogin;
     }
 
+    @Getter
+    @Setter
     public static class UserLogin{
         private long id;
         private String email;
         private String name;
-        private String role;
+        private RoleEnum role;
 
-        public UserLogin(long id, String email, String name) {
+        public UserLogin(long id, String email, String name, RoleEnum role) {
             this.id = id;
             this.email = email;
             this.name = name;
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getRole() {
-            return role;
-        }
-
-        public void setRole(String role) {
             this.role = role;
         }
+
+
     }
 
 

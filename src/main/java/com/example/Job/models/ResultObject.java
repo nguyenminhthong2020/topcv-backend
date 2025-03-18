@@ -1,7 +1,9 @@
 package com.example.Job.models;
 
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
+@Builder
 public class ResultObject<T> {
     public boolean isSuccess;
     public String message;
