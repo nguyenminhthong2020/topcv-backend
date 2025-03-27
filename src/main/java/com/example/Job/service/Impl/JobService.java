@@ -9,14 +9,19 @@ import com.example.Job.repository.JobRepository;
 import com.example.Job.service.interfaces.IJobService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class JobService implements IJobService {
 
-    private JobRepository jobRepository;
-    private ModelMapper modelMapper;
-    private CompanyRepository companyRepository;
+    private final JobRepository jobRepository;
+    private final ModelMapper modelMapper;
+    private final CompanyRepository companyRepository;
 
 
     public JobService(JobRepository jobRepository, ModelMapper modelMapper, CompanyRepository companyRepository) {
@@ -55,5 +60,42 @@ public class JobService implements IJobService {
         Job savedJob = jobRepository.save(newJob);
 
         return modelMapper.map(savedJob,JobDto.class);
+    }
+
+    @Override
+    public JobDto updateJob(long id, JobDto jobDto) {
+        return null;
+    }
+
+    @Override
+    public Page<JobDto> getAllJobs(int currentPage, int pageSize, String sortBy, boolean isAscending) {
+
+        Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
+
+        PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
+
+
+        Page<Job> jobPage = jobRepository.findAll(pageRequest);
+
+        Page<JobDto> jobResPage = jobPage.map(job -> modelMapper.map(job, JobDto.class));
+//        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+
+
+        return jobResPage;
+    }
+
+    @Override
+    public JobDto getJobById(long id) {
+        return null;
+    }
+
+    @Override
+    public List<JobDto> getAllJobsByCompany(int currentPage, int pageSize) {
+        return List.of();
+    }
+
+    @Override
+    public void deleteJob(long id) {
+
     }
 }

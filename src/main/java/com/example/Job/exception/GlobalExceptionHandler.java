@@ -2,6 +2,7 @@ package com.example.Job.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,6 +39,14 @@ public class GlobalExceptionHandler {
                 webRequest.getDescription(false));
 
         return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDetails> handleBadCredentialsException(BadCredentialsException exception, WebRequest webRequest) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(StorageException.class)

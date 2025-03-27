@@ -47,6 +47,6 @@ public class TestAuthController {
         List<UserDto> users = _userService.getUsersByPage(currentPage, pageSize);
         return new ResultPagination<>(true,
                 null, HttpStatus.OK, users,
-                currentPage, pageSize, -1, -1);
+                currentPage, pageSize, -1, -1 );
     }
 }

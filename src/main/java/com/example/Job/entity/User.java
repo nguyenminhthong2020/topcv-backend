@@ -31,8 +31,8 @@ public class User extends Account{
     @Enumerated(value = EnumType.STRING)
     private GenderEnum gender;
 
-    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
-    private Set<JobApply> jobApplies = new HashSet<>();
+//    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<JobApply> jobApplies = new HashSet<>();
 
     public User() {
         super();
