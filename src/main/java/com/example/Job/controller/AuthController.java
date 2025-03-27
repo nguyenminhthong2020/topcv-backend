@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,11 +67,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<ResponseDto> login(@Valid @RequestBody LoginDto loginDto) {
 
 //        Account user = userService.getUserByEmail(loginDto.getUsernameOrEmail());
         Account user = accountService.getAccountByEmail(loginDto.getUsernameOrEmail());
 
+        if(user == null){
+            throw new BadCredentialsException("Invalid email or password");
+        }
         JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(
                 user.getId(), user.getEmail(), user.getName(), user.getRole());
 
@@ -90,9 +94,14 @@ public class AuthController {
         // .path("/")
         // .maxAge(refreshTokenExpiration)
         // .build();
+        ResponseDto response = ResponseDto.builder()
+                .message("Login successfully")
+                .status(HttpStatus.OK)
+                .data(jwtAuthResponse)
+                .build();
         return ResponseEntity.ok()
                 // .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                .body(jwtAuthResponse);
+                .body(response);
 
     }
 
@@ -135,7 +144,7 @@ public class AuthController {
 
             return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
         } catch (Exception e) { // sẽ fix lại chỗ try catch này
-            e.printStackTrace();
+//            e.printStackTrace();
 
             // Ghi log lỗi
             _logService.logError("Registration error", e);

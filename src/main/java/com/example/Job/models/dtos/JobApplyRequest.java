@@ -14,7 +14,6 @@ public class JobApplyRequest {
 
     private String email;
 
-
     private MultipartFile resume; // fileUrl
 
     private String coverLetter;

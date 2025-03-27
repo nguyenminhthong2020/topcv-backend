@@ -44,4 +44,6 @@ public class JobDto {
 
     private List<Skill> skills;
 
+    private Instant createdAt;
+
 }

@@ -1,7 +1,9 @@
 package com.example.Job.models.dtos;
 
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
+@Builder
 public class ResponseDto {
     private HttpStatus status;
     private String message;

@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name =  "companies")
 //@PrimaryKeyJoinColumn(name = "company_id")
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -41,10 +42,10 @@ public class Company extends Account {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Job> jobs = new ArrayList<>();
     // Default no-args constructor
-    public Company() {
-        super();
-        this.role = RoleEnum.COMPANY;
-    }
+//    public Company() {
+//        super();
+//        this.role = RoleEnum.COMPANY;
+//    }
 
     // Constructor with fields
     public Company(String email, String password, String name, String overview,
@@ -59,5 +60,6 @@ public class Company extends Account {
         this.country = country;
         this.imgUrl = imgUrl;
         this.companySize = companySize;
+        this.role = RoleEnum.COMPANY;
     }
 }

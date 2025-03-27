@@ -10,7 +10,7 @@ import lombok.*;
 //@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
-
+@AllArgsConstructor
 public abstract class Account {
 
     @Id
@@ -29,7 +29,7 @@ public abstract class Account {
     protected String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", insertable = false, updatable = false) //  Prevent duplicate mapping
+    @Column(name = "role", updatable = false) //  Prevent duplicate mapping
     protected RoleEnum role;
     protected Account() {}
 

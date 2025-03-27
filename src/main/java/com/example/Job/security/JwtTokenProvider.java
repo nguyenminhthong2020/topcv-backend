@@ -26,7 +26,7 @@ public class JwtTokenProvider {
     public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
 
     private final JwtEncoder jwtEncoder;
-
+    private final JwtDecoder jwtDecoder;
 
     @Value("${app.jwt-secret}")
     private String jwtSecret;
@@ -39,19 +39,20 @@ public class JwtTokenProvider {
     private long refreshTokenExpiration;
 
 
-    public JwtTokenProvider(JwtEncoder jwtEncoder) {
+    public JwtTokenProvider(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder) {
         this.jwtEncoder = jwtEncoder;
+        this.jwtDecoder = jwtDecoder;
     }
 
-    private SecretKey getSecretKey(){
-        byte[] keyBytes = Base64.from(jwtSecret).decode();
-        return new SecretKeySpec(keyBytes, 0, keyBytes.length , JwtTokenProvider.JWT_ALGORITHM.getName());
-    }
+//    private SecretKey getSecretKey(){
+//        byte[] keyBytes = Base64.from(jwtSecret).decode();
+//        return new SecretKeySpec(keyBytes, 0, keyBytes.length , JwtTokenProvider.JWT_ALGORITHM.getName());
+//    }
 
 
     public Jwt verifyToken(String token){
-        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(
-                getSecretKey()).macAlgorithm(JwtTokenProvider.JWT_ALGORITHM).build();
+//        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(
+//                getSecretKey()).macAlgorithm(JwtTokenProvider.JWT_ALGORITHM).build();
 
         try{
             Jwt decodedToken =  jwtDecoder.decode(token);
