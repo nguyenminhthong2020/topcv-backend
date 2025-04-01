@@ -5,10 +5,10 @@ import com.example.Job.entity.Conversation;
 import com.example.Job.entity.Message;
 import com.example.Job.models.dtos.*;
 import com.example.Job.repository.ConversationRepository;
-import com.example.Job.service.interfaces.IAccountService;
-import com.example.Job.service.interfaces.IConversationService;
+import com.example.Job.service.IAccountService;
+import com.example.Job.service.IConversationService;
 
-import com.example.Job.service.interfaces.IMessageService;
+import com.example.Job.service.IMessageService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ConversationService implements IConversationService {

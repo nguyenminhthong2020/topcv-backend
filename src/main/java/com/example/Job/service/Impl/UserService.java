@@ -4,7 +4,7 @@ import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.repository.UserRepository;
-import com.example.Job.service.interfaces.IUserService;
+import com.example.Job.service.IUserService;
 
 import java.util.List;
 import java.util.stream.Collectors;

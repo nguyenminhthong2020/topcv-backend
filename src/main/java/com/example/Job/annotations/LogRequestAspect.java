@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import com.example.Job.service.interfaces.ILogService;
+import com.example.Job.service.ILogService;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

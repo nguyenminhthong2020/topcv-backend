@@ -8,7 +8,7 @@ import com.example.Job.models.dtos.Test.EncryptResponse;
 import com.example.Job.models.dtos.Test.TestChat;
 import com.example.Job.service.RedisService;
 import com.example.Job.service.Test.TestChatService;
-import com.example.Job.service.interfaces.ILogService;
+import com.example.Job.service.ILogService;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

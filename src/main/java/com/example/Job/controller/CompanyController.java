@@ -3,7 +3,7 @@ package com.example.Job.controller;
 import com.example.Job.entity.Company;
 import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.CompanyRegister;
-import com.example.Job.service.interfaces.ICompanyService;
+import com.example.Job.service.ICompanyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

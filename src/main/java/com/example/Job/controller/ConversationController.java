@@ -1,8 +1,7 @@
 package com.example.Job.controller;
 
-import com.example.Job.entity.Conversation;
 import com.example.Job.models.dtos.*;
-import com.example.Job.service.interfaces.IConversationService;
+import com.example.Job.service.IConversationService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +13,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/conversation")

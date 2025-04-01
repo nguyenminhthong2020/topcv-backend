@@ -1,27 +1,19 @@
 package com.example.Job.controller;
 
 import com.example.Job.entity.Message;
-import com.example.Job.models.dtos.AccountDto;
-import com.example.Job.models.dtos.MessageRequest;
 import com.example.Job.models.dtos.ResponseDto;
-import com.example.Job.security.JwtTokenProvider;
-import com.example.Job.service.interfaces.IConversationService;
+import com.example.Job.security.JwtUtil;
 
-import com.example.Job.service.interfaces.IMessageService;
+import com.example.Job.service.IMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class MessageController {
@@ -29,14 +21,14 @@ public class MessageController {
     private IMessageService messageService;
     private SimpMessagingTemplate simpMessagingTemplate;
     private SimpUserRegistry simpUserRegistry;
-    private JwtTokenProvider jwtTokenProvider;
+    private JwtUtil jwtUtil;
     private final String destinationQueue = "/queue/messages";
 
-    public MessageController(IMessageService messageService, SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, JwtTokenProvider jwtTokenProvider) {
+    public MessageController(IMessageService messageService, SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, JwtUtil jwtUtil) {
         this.messageService = messageService;
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.simpUserRegistry = simpUserRegistry;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtUtil = jwtUtil;
     }
 
 

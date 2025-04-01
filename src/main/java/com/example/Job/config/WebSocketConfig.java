@@ -1,7 +1,6 @@
 package com.example.Job.config;
 
-import com.example.Job.Interceptors.WebSocketAuthInterceptor;
-import com.example.Job.security.JwtTokenProvider;
+import com.example.Job.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -62,11 +61,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketConfig.class);
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUtil jwtUtil;
     private final ConcurrentHashMap<String, String> activeSessions = new ConcurrentHashMap<>();
 
-    public WebSocketConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    public WebSocketConfig(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -100,7 +99,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     if(authToken != null && authToken.startsWith("Bearer ")){
                         String token = authToken.substring(7);
 
-                        String userId = jwtTokenProvider.extractUserIdFromToken(token);
+                        String userId = jwtUtil.extractUserIdFromToken(token);
 
                         if(userId != null){
                             // If user already has an active session, reject the connection

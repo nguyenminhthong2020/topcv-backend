@@ -1,6 +1,7 @@
 package com.example.Job.entity;
 
 import com.example.Job.constant.ApplyStatusEnum;
+import com.example.Job.security.JwtUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,14 +32,18 @@ public class JobApply {
     @Enumerated(EnumType.STRING)
     private ApplyStatusEnum applyStatus;
 
-    private Instant applyDate;
+    private Instant createdAt;
 
-    @ManyToOne
+    private Instant updatedAt;
+
+    private String updatedBy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applicant_id")
     @JsonIgnore
     private User applicant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Job job;
 
@@ -48,6 +53,14 @@ public class JobApply {
         if(this.applyStatus == null){
             this.applyStatus = ApplyStatusEnum.PENDING;
         }
-        this.applyDate = Instant.now();
+        this.createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    public void handleBeforeUpdate() {
+
+        this.setUpdatedBy(JwtUtil.getCurrentUserLogin()
+                .orElseThrow(() -> null));
+        this.setUpdatedAt(Instant.now());
     }
 }

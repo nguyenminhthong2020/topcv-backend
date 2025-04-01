@@ -1,9 +1,11 @@
 package com.example.Job.controller;
 
-import com.example.Job.models.dtos.JobApplyRequest;
-import com.example.Job.models.dtos.ResponseDto;
-import com.example.Job.service.interfaces.IApplyService;
-import com.example.Job.service.interfaces.ILogService;
+import com.example.Job.models.ResultPagination;
+import com.example.Job.models.dtos.*;
+import com.example.Job.service.IApplyService;
+import com.example.Job.service.ILogService;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,30 +31,11 @@ public class JobApplyController {
                                                   @RequestPart("resume") MultipartFile resumeFile) {
         StringBuilder sb = new StringBuilder();
         try {
-//            // Tạo ObjectMapper để chuyển RegisterDto thành chuỗi JSON
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            String registerDtoJson = objectMapper.writeValueAsString(registerDto);
-//
-//            // Thêm vào StringBuilder
-//            sb.append(String.format("New user register at %s: \n", LocalDateTime.now()))
-//                    .append(registerDtoJson)
-//                    .append("\n");
 
-            // System.out.println("RegisterDto: " + registerDto);
             JobApplyRequest jobApplyRequest = new JobApplyRequest(email, resumeFile, coverLetter, userId, jobId);
 
             Object fileUrl = applyService.applyJob(jobApplyRequest);
 
-//            if (response.isSuccess == false) {
-//                ResponseDto errorResponseDto = new ResponseDto.Builder()
-//                        .setStatus(response.httpStatus)
-//                        .setMessage("Registration failed: " + response.message)
-//                        .setData(null)
-//                        .build();
-//
-//                // Trả về ResponseEntity với lỗi
-//                return new ResponseEntity<>(errorResponseDto, response.httpStatus);
-//            }
 
             ResponseDto responseDto = new ResponseDto.Builder()
                     .setStatus(HttpStatus.CREATED)
@@ -83,4 +66,95 @@ public class JobApplyController {
         }
     }
 
+
+    @GetMapping
+    public ResponseEntity<ResultPagination> getJobApplyByUser(@RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                            @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+        Page<GetJobApplyResponse> jobResPage = applyService.getJobApplyByUser(current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
+
+        ResultPagination<GetJobApplyResponse> res = ResultPagination.<GetJobApplyResponse>builder()
+                .isSuccess(true)
+                .message("Get jobs successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null)
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/job")
+    public ResponseEntity<ResultPagination> getJobApplyByJob(@RequestParam(value = "jobId") Long jobId,
+                                                            @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                              @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+        Page<CVListResponse> jobResPage = applyService.getApplyByJob(jobId,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
+
+        ResultPagination<CVListResponse> res = ResultPagination.<CVListResponse>builder()
+                .isSuccess(true)
+                .message("Get job apply successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null)
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/company")
+    public ResponseEntity<ResultPagination> getJobApplyByCompany(@RequestParam(value = "companyId") Long companyId,
+                                                                 @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                                 @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                                 @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+        Page<CVListResponse> jobResPage = applyService.getJobApplyByCompany(companyId,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
+
+        ResultPagination<CVListResponse> res = ResultPagination.<CVListResponse>builder()
+                .isSuccess(true)
+                .message("Get job apply successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null)
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> getJobApplyByCompany(@Valid @RequestBody ResumeUpdateRequest resumeUpdateRequest) {
+
+        ResumeUpdateResponse updatedResume = applyService.updateResumeStatus(resumeUpdateRequest.getResumeId(), resumeUpdateRequest.getApplyStatus());
+
+        ResponseDto res = new ResponseDto.Builder()
+                .setStatus(HttpStatus.OK)
+                .setMessage("Update successfully")
+                .setData(updatedResume)
+                .build();
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }

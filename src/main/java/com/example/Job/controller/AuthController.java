@@ -1,17 +1,16 @@
 package com.example.Job.controller;
 
 import com.example.Job.entity.Account;
-import com.example.Job.models.dtos.LoginDto;
-import com.example.Job.models.dtos.RegisterDto;
+import com.example.Job.models.dtos.LoginRequest;
+import com.example.Job.models.dtos.RegisterRequest;
 import com.example.Job.models.dtos.ResponseDto;
 import com.example.Job.models.dtos.UserDto;
-import com.example.Job.entity.User;
 import com.example.Job.security.JwtAuthResponse;
-import com.example.Job.security.JwtTokenProvider;
-import com.example.Job.service.interfaces.IAccountService;
-import com.example.Job.service.interfaces.IAuthService;
-import com.example.Job.service.interfaces.ILogService;
-import com.example.Job.service.interfaces.IUserService;
+import com.example.Job.security.JwtUtil;
+import com.example.Job.service.IAccountService;
+import com.example.Job.service.IAuthService;
+import com.example.Job.service.ILogService;
+import com.example.Job.service.IUserService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class AuthController {
     private IAuthService authService;
     private IUserService userService;
     private IAccountService accountService;
-    private JwtTokenProvider jwtTokenProvider;
+    private JwtUtil jwtUtil;
     private Environment environment;
 
     private ILogService _logService;
@@ -57,20 +56,20 @@ public class AuthController {
 
     @Autowired
     public AuthController(IAuthService authService, IUserService userService,
-            JwtTokenProvider jwtTokenProvider, ILogService logServivce, Environment environment, IAccountService accountService) {
+                          JwtUtil jwtUtil, ILogService logServivce, Environment environment, IAccountService accountService) {
         this.authService = authService;
         this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtUtil = jwtUtil;
         this._logService = logServivce;
         this.environment = environment;
         this.accountService = accountService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<ResponseDto> login(@Valid @RequestBody LoginRequest loginRequest) {
 
 //        Account user = userService.getUserByEmail(loginDto.getUsernameOrEmail());
-        Account user = accountService.getAccountByEmail(loginDto.getUsernameOrEmail());
+        Account user = accountService.getAccountByEmail(loginRequest.getUsernameOrEmail());
 
         if(user == null){
             throw new BadCredentialsException("Invalid email or password");
@@ -78,7 +77,7 @@ public class AuthController {
         JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(
                 user.getId(), user.getEmail(), user.getName(), user.getRole());
 
-        String accessToken = authService.login(loginDto, user);
+        String accessToken = authService.login(loginRequest, user);
 
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
         jwtAuthResponse.setAccessToken(accessToken);
@@ -106,12 +105,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto registerDto) {
+    public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterRequest registerRequest) {
         StringBuilder sb = new StringBuilder();
         try {
             // Tạo ObjectMapper để chuyển RegisterDto thành chuỗi JSON
             ObjectMapper objectMapper = new ObjectMapper();
-            String registerDtoJson = objectMapper.writeValueAsString(registerDto);
+            String registerDtoJson = objectMapper.writeValueAsString(registerRequest);
 
             // Thêm vào StringBuilder
             sb.append(String.format("New user register at %s: \n", LocalDateTime.now()))
@@ -119,7 +118,7 @@ public class AuthController {
                     .append("\n");
 
             // System.out.println("RegisterDto: " + registerDto);
-            ResultObject<UserDto> response = authService.registerUser(registerDto);
+            ResultObject<UserDto> response = authService.registerUser(registerRequest);
 
             if (response.isSuccess == false) {
                 ResponseDto errorResponseDto = new ResponseDto.Builder()
@@ -167,12 +166,12 @@ public class AuthController {
     @PostMapping("/secure-register")
     @RateLimiter(name = "perUserRateLimiter", fallbackMethod = "userFallback")
     // @RateLimiter(name = "globalRateLimiter", fallbackMethod = "globalFallback")
-    public ResultObject<UserDto> secureRegister(@Valid @RequestBody RegisterDto registerDto) {
+    public ResultObject<UserDto> secureRegister(@Valid @RequestBody RegisterRequest registerRequest) {
         StringBuilder sb = new StringBuilder();
         try {
             // Tạo ObjectMapper để chuyển RegisterDto thành chuỗi JSON
             ObjectMapper objectMapper = new ObjectMapper();
-            String registerDtoJson = objectMapper.writeValueAsString(registerDto);
+            String registerDtoJson = objectMapper.writeValueAsString(registerRequest);
 
             // Thêm vào StringBuilder
             sb.append(String.format("New user register at %s: \n", LocalDateTime.now()))
@@ -181,13 +180,13 @@ public class AuthController {
 
             // System.out.println("RegisterDto: " + registerDto);
             String key = environment.getProperty("app.decrypt-key");
-            Result result = DecryptUtil.decryptString(key, registerDto.password);
+            Result result = DecryptUtil.decryptString(key, registerRequest.password);
             if (result.isSuccess() == false) {
                 throw new Exception(result.getMessage());
             }
 
-            registerDto.password = result.getMessage();
-            ResultObject<UserDto> response = authService.registerUser(registerDto);
+            registerRequest.password = result.getMessage();
+            ResultObject<UserDto> response = authService.registerUser(registerRequest);
 
             if (response.isSuccess == false) {
                 return new ResultObject<>(false,
@@ -218,14 +217,14 @@ public class AuthController {
     }
 
     // Fallback cho giới hạn mỗi người dùng
-    public ResultObject<UserDto> userFallback(RegisterDto registerDto, Throwable t) {
+    public ResultObject<UserDto> userFallback(RegisterRequest registerRequest, Throwable t) {
         return new ResultObject<UserDto>(false,
                 "You've exceeded your request limit. Please try again later.",
                 HttpStatus.TOO_MANY_REQUESTS,
                 null);
     }
 
-    public ResultObject<UserDto> globalFallback(RegisterDto registerDto, Throwable t) {
+    public ResultObject<UserDto> globalFallback(RegisterRequest registerRequest, Throwable t) {
         return new ResultObject<UserDto>(false,
                 "System is busy due to high traffic. Please try again later.",
                 HttpStatus.TOO_MANY_REQUESTS,

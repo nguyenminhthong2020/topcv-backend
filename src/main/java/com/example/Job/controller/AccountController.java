@@ -1,12 +1,8 @@
 package com.example.Job.controller;
 
-import com.example.Job.entity.Company;
-import com.example.Job.models.ResultObject;
 import com.example.Job.models.dtos.AccountDto;
-import com.example.Job.models.dtos.CompanyRegister;
 import com.example.Job.models.dtos.ResponseDto;
-import com.example.Job.service.interfaces.IAccountService;
-import jakarta.validation.Valid;
+import com.example.Job.service.IAccountService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

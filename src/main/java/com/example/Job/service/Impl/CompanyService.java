@@ -6,7 +6,7 @@ import com.example.Job.entity.Company;
 import com.example.Job.models.dtos.CompanyRegister;
 import com.example.Job.repository.AccountRepository;
 import com.example.Job.repository.CompanyRepository;
-import com.example.Job.service.interfaces.ICompanyService;
+import com.example.Job.service.ICompanyService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
