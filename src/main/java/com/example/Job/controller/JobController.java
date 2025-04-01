@@ -1,15 +1,18 @@
 package com.example.Job.controller;
 
-import com.example.Job.entity.Job;
+import com.example.Job.constant.IndustryEnum;
+import com.example.Job.constant.JobTypeEnum;
+import com.example.Job.constant.LevelEnum;
 import com.example.Job.models.ResultPagination;
-import com.example.Job.models.dtos.JobDto;
-import com.example.Job.models.dtos.ResponseDto;
-import com.example.Job.service.interfaces.IJobService;
+import com.example.Job.models.dtos.*;
+import com.example.Job.service.IJobService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/jobs")
@@ -20,11 +23,27 @@ public class JobController {
         this.jobService = jobService;
     }
 
+    @PostMapping("/save")
+    public ResponseEntity<ResponseDto> saveJob(@RequestParam(value = "jobId") Long jobId) {
+
+
+        jobService.saveJob(jobId);
+
+        ResponseDto responseDto = new ResponseDto.Builder()
+                .setStatus(HttpStatus.OK)
+                .setMessage("Save Job successfully")
+                .setData(null)
+                .build();
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+
+    }
+
+
     @PostMapping
-    public ResponseEntity<ResponseDto> createJob(@Valid @RequestBody JobDto jobDto) {
+    public ResponseEntity<ResponseDto> createJob(@Valid @RequestBody JobCreateRequest jobCreateRequest) {
 
 
-        JobDto addJob = jobService.createJob(jobDto);
+        JobDto addJob = jobService.createJob(jobCreateRequest);
 
         ResponseDto responseDto = new ResponseDto.Builder()
                 .setStatus(HttpStatus.CREATED)
@@ -36,7 +55,7 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<ResultPagination<JobDto>> getJobsPagination(@RequestParam(value = "current", defaultValue = "1") int current,
+    public ResponseEntity<ResultPagination> getJobsPagination(@RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                                       @RequestParam(value = "sortBy", defaultValue = "yearOfExperience") String sortBy,
                                                                       @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
@@ -49,9 +68,118 @@ public class JobController {
 
 //        List<JobDto> jobDtos = jobService.getAllJobs(current - 1, pageSize);
 
-        Page<JobDto> jobResPage = jobService.getAllJobs(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+        Page<GetJobResponse> jobResPage = jobService.getAllJobs(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
 
-        ResultPagination<JobDto> res = ResultPagination.<JobDto>builder()
+        ResultPagination<GetJobResponse> res = ResultPagination.<GetJobResponse>builder()
+                .isSuccess(true)
+                .message("Get jobs successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null)
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/company")
+    public ResponseEntity<ResultPagination> getJobByCompany(@RequestParam(value = "companyId") Long companyId,
+                                                                    @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                                    @RequestParam(value = "sortBy", defaultValue = "yearOfExperience") String sortBy,
+                                                                    @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+
+            Page<GetJobResponse> jobResPage = jobService.getAllJobsByCompany(companyId, current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+
+            ResultPagination<GetJobResponse> res = ResultPagination.<GetJobResponse>builder()
+                    .isSuccess(true)
+                    .message("Get jobs successfully")
+                    .httpStatus(HttpStatus.OK)
+                    .currentPage(jobResPage.getNumber() + 1)
+                    .pageSize(jobResPage.getSize())
+                    .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                    .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null )
+                    .data(jobResPage.getContent())
+                    .totalPage(jobResPage.getTotalPages())
+                    .totalElement(jobResPage.getTotalElements())
+                    .build();
+
+
+            return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResultPagination> searchForJobs(@RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                              @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending,
+                                                          @RequestParam(value = "keyword", required = false) String keyword,
+                                                          @RequestParam(value = "jobType", required = false) JobTypeEnum jobType,
+                                                          @RequestParam(value = "industry", required = false) IndustryEnum industry,
+                                                          @RequestParam(value = "level", required = false) LevelEnum level,
+                                                          @RequestParam(value = "minExperience", defaultValue = "0") Integer minExperience,
+                                                          @RequestParam(value = "maxExperience", defaultValue = "100") Integer maxExperience,
+                                                          @RequestParam(value = "minSalary", required = false) Double minSalary,
+                                                          @RequestParam(value = "maxSalary", required = false) Double maxSalary,
+                                                          @RequestParam(value = "cities", required = false) List<String> cities
+                                                          ) {
+
+        double minSal = minSalary == null ? 0 : minSalary;
+        double maxSal = maxSalary == null ? Double.MAX_VALUE : maxSalary;
+
+        Page<GetJobResponseDto> jobResPage = jobService.searchForJobs(keyword,current - 1, pageSize, sortBy, Boolean.valueOf(isAscending),
+                jobType, industry, level, minExperience, maxExperience, minSal, maxSal, cities);
+
+        ResultPagination<GetJobResponseDto> res = ResultPagination.<GetJobResponseDto>builder()
+                .isSuccess(true)
+                .message("Get jobs successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null)
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/{jobId}/related")
+    public ResponseEntity<ResponseDto> getRelatedJobs(@PathVariable Long jobId,
+                                                       @RequestParam(defaultValue = "5") int limit) {
+
+        List<GetJobResponseDto> relatedJob = jobService.getRelatedJob(jobId, limit);
+
+        ResponseDto response = ResponseDto.builder()
+                .status(HttpStatus.OK)
+                .message("Get related job successfully")
+                .data(relatedJob)
+                .build();
+
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/save")
+    public ResponseEntity<ResultPagination> getSavedJobsByUser(
+                                                            @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                            @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+
+        Page<GetJobResponse> jobResPage = jobService.getAllSavedJobsByUser(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+
+        ResultPagination<GetJobResponse> res = ResultPagination.<GetJobResponse>builder()
                 .isSuccess(true)
                 .message("Get jobs successfully")
                 .httpStatus(HttpStatus.OK)
@@ -61,11 +189,42 @@ public class JobController {
                 .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null )
                 .data(jobResPage.getContent())
                 .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
                 .build();
 
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @DeleteMapping("/save")
+    public ResponseEntity<ResponseDto> removeSavedJob(@RequestParam(value = "jobId") Long jobId) {
+
+        jobService.deleteSavedJob(jobId);
+
+        ResponseDto response = ResponseDto.builder()
+                .status(HttpStatus.OK)
+                .message("Remove saved job successfully")
+                .data(null)
+                .build();
+
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @PutMapping("/status")
+    public ResponseEntity<ResponseDto> updateJobStatus(@Valid @RequestBody UpdateJobStatusRequest request) {
+
+        jobService.updateJobStatus(request);
+
+        ResponseDto response = ResponseDto.builder()
+                .status(HttpStatus.OK)
+                .message("Update job status successfully")
+                .data(null)
+                .build();
+
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }

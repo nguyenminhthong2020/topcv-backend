@@ -16,13 +16,8 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-//@PrimaryKeyJoinColumn(name = "user_id")
-//@AllArgsConstructor
-//@NoArgsConstructor
-public class User extends Account{
 
-//    @Column(name = "name", nullable = false)
-//    private String name;
+public class User extends Account{
 
     @Column(name = "birthday")
     private Date birthday;
@@ -33,6 +28,14 @@ public class User extends Account{
 
 //    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<JobApply> jobApplies = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Job_Save",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns =  @JoinColumn(name = "job_id")
+    )
+    Set<Job> savedJobs;
 
     public User() {
         super();

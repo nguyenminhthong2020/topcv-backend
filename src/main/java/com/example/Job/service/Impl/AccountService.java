@@ -4,12 +4,11 @@ import com.example.Job.entity.Account;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.models.dtos.AccountDto;
 import com.example.Job.repository.AccountRepository;
-import com.example.Job.service.interfaces.IAccountService;
+import com.example.Job.service.IAccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

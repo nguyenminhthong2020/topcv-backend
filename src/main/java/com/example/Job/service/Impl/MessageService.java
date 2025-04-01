@@ -5,7 +5,7 @@ import com.example.Job.entity.Conversation;
 import com.example.Job.entity.Message;
 import com.example.Job.models.dtos.MessageRequest;
 import com.example.Job.repository.MessageRepository;
-import com.example.Job.service.interfaces.IMessageService;
+import com.example.Job.service.IMessageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

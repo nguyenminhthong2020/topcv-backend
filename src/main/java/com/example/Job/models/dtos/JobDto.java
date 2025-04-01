@@ -1,5 +1,6 @@
 package com.example.Job.models.dtos;
 
+import com.example.Job.constant.JobStatusEnum;
 import com.example.Job.constant.JobTypeEnum;
 import com.example.Job.constant.LevelEnum;
 import com.example.Job.entity.Skill;
@@ -16,10 +17,13 @@ import java.util.List;
 @Setter
 public class JobDto {
 
+    private long id;
+
     private String name;
 
-    private String location;
+    private String[] city;
 
+//    private String district;
     private double salaryFrom;
 
     private double salaryTo;
@@ -35,14 +39,13 @@ public class JobDto {
 
     private String description;
 
-    private Instant startDate;
-    private Instant endDate;
+    private Instant deadline;
 
-    private boolean active;
+    private JobStatusEnum jobStatus;
 
     private long companyId;
 
-    private List<Skill> skills;
+    private List<String> skills;
 
     private Instant createdAt;
 

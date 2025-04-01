@@ -9,16 +9,18 @@ public class ResultPagination<T> {
     public boolean isSuccess;
     public String message;
     public HttpStatus httpStatus;
-    public List<T> data;
     public int currentPage;
     public int pageSize;
     public Integer nextPage;
     public Integer previousPage;
     public Integer totalPage;
+    public Long totalElement;
+    public List<T> data;
+
 
     public ResultPagination(boolean isSuccess, String message, HttpStatus httpStatus,
-                            List<T> data, int currentPage, int pageSize, Integer nextPage,
-                            Integer previousPage, Integer totalPage) {
+                            int currentPage, int pageSize, Integer nextPage,
+                            Integer previousPage, Integer totalPage, Long totalElement,  List<T> data) {
         this.isSuccess = isSuccess;
         this.message = message;
         this.httpStatus = httpStatus;
@@ -28,10 +30,11 @@ public class ResultPagination<T> {
         this.nextPage = nextPage;
         this.previousPage = previousPage;
         this.totalPage = totalPage;
+        this.totalElement = totalElement;
     }
     public ResultPagination(boolean isSuccess, String message, HttpStatus httpStatus,
-                            List<T> data, int currentPage, int pageSize, Integer nextPage,
-                            Integer previousPage) {
+                            int currentPage, int pageSize, Integer nextPage,
+                            Integer previousPage,  List<T> data) {
         this.isSuccess = isSuccess;
         this.message = message;
         this.httpStatus = httpStatus;

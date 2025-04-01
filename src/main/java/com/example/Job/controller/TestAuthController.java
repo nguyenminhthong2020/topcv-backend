@@ -3,8 +3,8 @@ package com.example.Job.controller;
 import com.example.Job.models.ResultObject;
 import com.example.Job.models.ResultPagination;
 import com.example.Job.models.dtos.UserDto;
-import com.example.Job.service.interfaces.ILogService;
-import com.example.Job.service.interfaces.IUserService;
+import com.example.Job.service.ILogService;
+import com.example.Job.service.IUserService;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class TestAuthController {
     public ResultPagination<UserDto> getAllUserPagination(int currentPage, int pageSize) {
         List<UserDto> users = _userService.getUsersByPage(currentPage, pageSize);
         return new ResultPagination<>(true,
-                null, HttpStatus.OK, users,
-                currentPage, pageSize, -1, -1 );
+                null, HttpStatus.OK,
+                currentPage, pageSize, -1, -1 , users);
     }
 }

@@ -1,5 +1,5 @@
 package com.example.Job.constant;
 
 public enum ApplyStatusEnum {
-    SUBMITTING, ACCEPTED, PENDING
+    SUBMITTING, ACCEPTED, PENDING, SEEN, REJECTED
 }

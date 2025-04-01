@@ -1,13 +1,13 @@
 package com.example.Job.entity;
 
-import com.example.Job.constant.JobTypeEnum;
-import com.example.Job.constant.LevelEnum;
-import com.example.Job.security.JwtTokenProvider;
+import com.example.Job.constant.*;
+import com.example.Job.security.JwtUtil;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,7 +24,11 @@ public class Job {
 
     private String name;
 
-    private String location;
+    @Column(columnDefinition = "TEXT[]")
+    private List<String> city;
+
+    @Column(columnDefinition = "TEXT[]")
+    private List<String> skills;
 
     private double salaryFrom;
 
@@ -33,24 +37,38 @@ public class Job {
     private int quantity; // NUMBER OF APPLICANT
 
     @Enumerated(EnumType.STRING)
-    private JobTypeEnum jobType;
+    private IndustryEnum industry;
 
+    @Enumerated(EnumType.STRING)
+    private JobTypeEnum jobType; // FULL_TIME, PART_TIME, REMOTE, HYBRID
+
+    @Enumerated(EnumType.STRING)
     private LevelEnum level; // INTERN, FRESHER, SENIOR
+
+    @Enumerated(EnumType.STRING)
+    private EducationLevelEnum educationLevel;
 
     private int yearOfExperience;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private Instant startDate;
-    private Instant endDate;
+    @Column(columnDefinition = "TEXT")
+    private String detail;
 
-    private boolean active;
+    private Instant deadline;
+
+//    private boolean active;
+    @Enumerated(EnumType.STRING)
+    private JobStatusEnum jobStatus;
+
+    @Column(name = "search_vector", columnDefinition = "tsvector",  insertable = false, updatable = false )
+    private String searchVector;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-
 
     private Instant createdAt;
 
@@ -63,18 +81,18 @@ public class Job {
     @OneToMany(mappedBy = "job")
     private Set<JobApply> jobApplies = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "job_skill",
-            joinColumns = @JoinColumn(name = "job_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private Set<Skill> skills = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "job_skill",
+//            joinColumns = @JoinColumn(name = "job_id"),
+//            inverseJoinColumns = @JoinColumn(name = "skill_id")
+//    )
+//    private Set<Skill> skills = new HashSet<>();
 
     // Before add a new job, set CreatedBy to email who add the job
     @PrePersist
     public void handleBeforeCreate() {
 
-        this.setCreatedBy(JwtTokenProvider.getCurrentUserLogin()
+        this.setCreatedBy(JwtUtil.getCurrentUserLogin()
                 .orElseThrow(() -> null));
         this.setCreatedAt(Instant.now());
     }
@@ -82,7 +100,7 @@ public class Job {
     @PreUpdate
     public void handleBeforeUpdate() {
 
-        this.setUpdatedBy(JwtTokenProvider.getCurrentUserLogin()
+        this.setUpdatedBy(JwtUtil.getCurrentUserLogin()
                 .orElseThrow(() -> null));
         this.setUpdatedAt(Instant.now());
     }

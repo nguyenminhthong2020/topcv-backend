@@ -1,6 +1,6 @@
 package com.example.Job.config;
 
-import com.example.Job.security.JwtTokenProvider;
+import com.example.Job.security.JwtUtil;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.nimbusds.jose.util.Base64;
@@ -27,13 +27,13 @@ public class JwtConfig {
     // Create Secret Key
     private SecretKey getSecretKey(){
         byte[] keyBytes = Base64.from(jwtSecret).decode();
-        return new SecretKeySpec(keyBytes, 0, keyBytes.length , JwtTokenProvider.JWT_ALGORITHM.getName());
+        return new SecretKeySpec(keyBytes, 0, keyBytes.length , JwtUtil.JWT_ALGORITHM.getName());
     }
 
     @Bean
     public JwtDecoder jwtDecoder(){
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(
-                getSecretKey()).macAlgorithm(JwtTokenProvider.JWT_ALGORITHM).build();
+                getSecretKey()).macAlgorithm(JwtUtil.JWT_ALGORITHM).build();
 
         return token -> {
             try{

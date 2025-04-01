@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.Job.service.interfaces.ILogService;
+import com.example.Job.service.ILogService;
 
 @Service
 public class LogService implements ILogService {
