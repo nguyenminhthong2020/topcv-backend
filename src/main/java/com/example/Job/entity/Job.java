@@ -40,6 +40,9 @@ public class Job {
     private IndustryEnum industry;
 
     @Enumerated(EnumType.STRING)
+    private GenderRequireEnum genderRequire;
+
+    @Enumerated(EnumType.STRING)
     private JobTypeEnum jobType; // FULL_TIME, PART_TIME, REMOTE, HYBRID
 
     @Enumerated(EnumType.STRING)
@@ -48,13 +51,14 @@ public class Job {
     @Enumerated(EnumType.STRING)
     private EducationLevelEnum educationLevel;
 
-    private int yearOfExperience;
+    private float yearOfExperience;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(columnDefinition = "TEXT")
     private String detail;
+
 
     private Instant deadline;
 

@@ -1,5 +1,6 @@
 package com.example.Job.controller;
 
+import com.example.Job.constant.ApplyStatusEnum;
 import com.example.Job.models.ResultPagination;
 import com.example.Job.models.dtos.*;
 import com.example.Job.service.IApplyService;
@@ -97,9 +98,11 @@ public class JobApplyController {
                                                             @RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                               @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
-                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending,
+                                                             @RequestParam(value = "applyStatus", required = false) ApplyStatusEnum applyStatus
+                                                             ) {
 
-        Page<CVListResponse> jobResPage = applyService.getApplyByJob(jobId,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
+        Page<CVListResponse> jobResPage = applyService.getApplyByJob(jobId, applyStatus,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
 
         ResultPagination<CVListResponse> res = ResultPagination.<CVListResponse>builder()
                 .isSuccess(true)
@@ -123,9 +126,12 @@ public class JobApplyController {
                                                                  @RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                                  @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
-                                                                 @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+                                                                 @RequestParam(value = "ascending", defaultValue = "true") String isAscending,
+                                                                 @RequestParam(value = "applyStatus", required = false) ApplyStatusEnum applyStatus,
+                                                                 @RequestParam(value = "keyword", required = false) String keyword
+                                                                 ) {
 
-        Page<CVListResponse> jobResPage = applyService.getJobApplyByCompany(companyId,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
+        Page<CVListResponse> jobResPage = applyService.getJobApplyByCompany(keyword, applyStatus, companyId,current - 1, pageSize, sortBy, Boolean.parseBoolean(isAscending));
 
         ResultPagination<CVListResponse> res = ResultPagination.<CVListResponse>builder()
                 .isSuccess(true)

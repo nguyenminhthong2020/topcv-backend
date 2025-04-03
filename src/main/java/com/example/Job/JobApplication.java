@@ -12,7 +12,7 @@ public class JobApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(JobApplication.class, args);
 		// tự động mở trình duyệt, vào link swagger
-//		openSwaggerUI(context);
+		openSwaggerUI(context);
 	}
 
 	private static void openSwaggerUI(ApplicationContext context) {

@@ -19,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -40,24 +42,26 @@ public class JobService implements IJobService {
 
     @Override
     @Transactional
-    public JobDto createJob(JobCreateRequest jobCreateRequest) {
+    public JobDetailResponse createJob(JobCreateRequest jobCreateRequest) {
         Company company = companyRepository.findById(jobCreateRequest.getCompanyId())
                 .orElseThrow(() ->  new ResourceNotFoundException("Company", "id", jobCreateRequest.getCompanyId()));
 //
 //        Company company1 = new Company();
 //        company1.setId(jobCreateRequest.getCompanyId());
 //        Job newJob = modelMapper.map(jobCreateRequest, Job.class);
+        Instant convertedDeadline = jobCreateRequest.getDeadline().atStartOfDay().toInstant(ZoneOffset.UTC);
         Job newJob = Job.builder()
                 .jobType(jobCreateRequest.getJobType())
                 .jobStatus(jobCreateRequest.getJobStatus() != null ? jobCreateRequest.getJobStatus() : JobStatusEnum.PENDING)
                 .level(jobCreateRequest.getLevel())
                 .description(jobCreateRequest.getDescription())
+                .detail(jobCreateRequest.getDetail())
                 .name(jobCreateRequest.getName())
                 .quantity(jobCreateRequest.getQuantity())
                 .salaryFrom(jobCreateRequest.getSalaryFrom())
                 .salaryTo(jobCreateRequest.getSalaryTo())
                 .yearOfExperience(jobCreateRequest.getYearOfExperience())
-                .deadline(jobCreateRequest.getDeadline())
+                .deadline(convertedDeadline)
                 .city(jobCreateRequest.getCity())
                 .company(company)
                 .skills(jobCreateRequest.getSkills())
@@ -66,11 +70,11 @@ public class JobService implements IJobService {
 
         Job savedJob = jobRepository.save(newJob);
 
-        return modelMapper.map(savedJob,JobDto.class);
+        return modelMapper.map(savedJob, JobDetailResponse.class);
     }
 
     @Override
-    public JobDto updateJob(long id, JobDto jobDto) {
+    public JobDetailResponse updateJob(long id, JobDetailResponse jobDetailResponse) {
         return null;
     }
 
@@ -105,8 +109,17 @@ public class JobService implements IJobService {
     }
 
     @Override
-    public JobDto getJobDetailById(long id) {
-        return null;
+    public JobDetailResponse getJobDetailById(long id) {
+        Job job = getJobById(id);
+
+        return modelMapper.map(job, JobDetailResponse.class);
+    }
+
+    @Override
+    public JobDetailCompanyResponse getJobDetailWithCompanyById(long id) {
+        Job job = getJobById(id);
+
+        return modelMapper.map(job, JobDetailCompanyResponse.class);
     }
 
     @Override
@@ -139,6 +152,25 @@ public class JobService implements IJobService {
                     .companyImg(job.getCompany().getImgUrl())
                     .companyId(job.getCompany().getId())
                     .build();
+        });
+
+        return jobResPage;
+    }
+
+    @Override
+    public Page<JobPostResponse> getAllJobPostsByCompany(Long companyId,JobStatusEnum postStatus, int currentPage, int pageSize, String sortBy, boolean isAscending) {
+        Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
+
+        PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
+
+
+        Page<Job> jobPage = jobRepository.findJobByCompanyIdWithStatus( companyId, postStatus,pageRequest);
+
+//        Page<GetJobResponse> jobResPage = jobPage.map(job -> modelMapper.map(job, GetJobResponse.class));
+//        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+
+        Page<JobPostResponse> jobResPage = jobPage.map(job -> {
+            return modelMapper.map(job, JobPostResponse.class);
         });
 
         return jobResPage;
@@ -244,12 +276,20 @@ public class JobService implements IJobService {
         return jobResPage;
     }
 
+
     @Override
+    @Transactional
     public void updateJobStatus(UpdateJobStatusRequest request) {
-        Job job = getJobById(request.getJobId());
+//        Job job = getJobById(request.getJobId());
+//
+//        job.setJobStatus(request.getJobStatus());
 
-        job.setJobStatus(request.getJobStatus());
+//        jobRepository.save(job);
+        try{
+            jobRepository.updateJobStatus(request.getJobStatus(), request.getJobId());
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
 
-        jobRepository.save(job);
     }
 }

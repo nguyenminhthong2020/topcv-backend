@@ -15,7 +15,6 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @ManyToOne
     @JoinColumn(name = "user1_id")
     private Account user1;  // First participant

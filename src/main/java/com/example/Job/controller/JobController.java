@@ -1,6 +1,7 @@
 package com.example.Job.controller;
 
 import com.example.Job.constant.IndustryEnum;
+import com.example.Job.constant.JobStatusEnum;
 import com.example.Job.constant.JobTypeEnum;
 import com.example.Job.constant.LevelEnum;
 import com.example.Job.models.ResultPagination;
@@ -38,12 +39,43 @@ public class JobController {
 
     }
 
+    // This Get Job Detail API is for User
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<ResponseDto> getJobDetailForUser(@PathVariable(name = "id") long id) {
+
+
+        JobDetailCompanyResponse jobDetail = jobService.getJobDetailWithCompanyById(id);
+
+        ResponseDto responseDto = new ResponseDto.Builder()
+                .setStatus(HttpStatus.OK)
+                .setMessage("Get Job Detail successfully")
+                .setData(jobDetail)
+                .build();
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+
+    }
+
+    // This Get Job Detail API is for Recruiter
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto> getJobDetail(@PathVariable(name = "id") long id) {
+
+
+        JobDetailResponse jobDetail = jobService.getJobDetailById(id);
+
+        ResponseDto responseDto = new ResponseDto.Builder()
+                .setStatus(HttpStatus.OK)
+                .setMessage("Get Job Detail successfully")
+                .setData(jobDetail)
+                .build();
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+
+    }
 
     @PostMapping
     public ResponseEntity<ResponseDto> createJob(@Valid @RequestBody JobCreateRequest jobCreateRequest) {
 
 
-        JobDto addJob = jobService.createJob(jobCreateRequest);
+        JobDetailResponse addJob = jobService.createJob(jobCreateRequest);
 
         ResponseDto responseDto = new ResponseDto.Builder()
                 .setStatus(HttpStatus.CREATED)
@@ -112,6 +144,36 @@ public class JobController {
 
 
             return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/company/post")
+    public ResponseEntity<ResultPagination> getJobPostByCompany(@RequestParam(value = "companyId") Long companyId,
+                                                            @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                            @RequestParam(value = "ascending", defaultValue = "true") String isAscending,
+                                                                @RequestParam(value = "postStatus", required = false) JobStatusEnum postStatus
+    ) {
+
+//        JobStatusEnum jobStatusEnum =  postStatus != null ? JobStatusEnum.valueOf(postStatus) : null;
+
+        Page<JobPostResponse> jobResPage = jobService.getAllJobPostsByCompany(companyId,postStatus ,current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+
+        ResultPagination<JobPostResponse> res = ResultPagination.<JobPostResponse>builder()
+                .isSuccess(true)
+                .message("Get job posts successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(jobResPage.getNumber() + 1)
+                .pageSize(jobResPage.getSize())
+                .previousPage(jobResPage.hasPrevious() ? jobResPage.getNumber() : null)
+                .nextPage(jobResPage.hasNext() ? jobResPage.getNumber() + 2 : null )
+                .data(jobResPage.getContent())
+                .totalPage(jobResPage.getTotalPages())
+                .totalElement(jobResPage.getTotalElements())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/search")

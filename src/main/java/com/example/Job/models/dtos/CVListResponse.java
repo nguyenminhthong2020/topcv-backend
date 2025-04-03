@@ -36,4 +36,5 @@ public class CVListResponse {
 
     private String userName;
 
+    private String coverLetter;
 }
