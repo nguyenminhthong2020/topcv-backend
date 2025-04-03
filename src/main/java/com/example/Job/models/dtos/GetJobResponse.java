@@ -20,7 +20,7 @@ public class GetJobResponse {
 
     private String name;
 
-    private int yearOfExperience;
+    private float yearOfExperience;
 
     private double salaryFrom;
 

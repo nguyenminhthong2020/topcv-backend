@@ -1,5 +1,5 @@
 package com.example.Job.constant;
 
 public enum EducationLevelEnum {
-    NONE, COLLEGE, UNIVERSITY, MASTER, HIGHER
+    NONE, COLLEGE, BACHELOR, MASTER, HIGHER
 }

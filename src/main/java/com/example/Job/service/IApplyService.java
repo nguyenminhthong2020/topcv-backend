@@ -14,9 +14,9 @@ public interface IApplyService {
 
     Page<GetJobApplyResponse> getJobApplyByUser(int currentPage, int pageSize, String sortBy, boolean isAscending);
 
-    Page<CVListResponse> getApplyByJob(Long jobId, int currentPage, int pageSize, String sortBy, boolean isAscending);
+    Page<CVListResponse> getApplyByJob(Long jobId, ApplyStatusEnum applyStatus, int currentPage, int pageSize, String sortBy, boolean isAscending);
 
-    Page<CVListResponse> getJobApplyByCompany(Long companyId, int currentPage, int pageSize, String sortBy, boolean isAscending);
+    Page<CVListResponse> getJobApplyByCompany(String keyword, ApplyStatusEnum applyStatus, Long companyId, int currentPage, int pageSize, String sortBy, boolean isAscending);
 
     ResumeUpdateResponse updateResumeStatus(long resumeId, ApplyStatusEnum applyStatus);
 

@@ -112,13 +112,13 @@ public class ApplyService implements IApplyService {
     }
 
     @Override
-    public Page<CVListResponse> getApplyByJob(Long jobId, int currentPage, int pageSize, String sortBy, boolean isAscending) {
+    public Page<CVListResponse> getApplyByJob(Long jobId, ApplyStatusEnum applyStatus, int currentPage, int pageSize, String sortBy, boolean isAscending) {
 
         Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
 
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
 
-        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByJobId(jobId, pageRequest);
+        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByJobId(jobId, applyStatus, pageRequest);
 
         Page<CVListResponse> jobResPage = jobApply.map(apply -> {
             return CVListResponse.builder()
@@ -130,6 +130,7 @@ public class ApplyService implements IApplyService {
                     .applyStatus(apply.getApplyStatus())
                     .jobId(apply.getJob().getId())
                     .jobName(apply.getJob().getName())
+                    .coverLetter(apply.getCoverLetter())
                     .userName(apply.getApplicant().getName())
                     .build();
         });
@@ -138,12 +139,12 @@ public class ApplyService implements IApplyService {
     }
 
     @Override
-    public Page<CVListResponse> getJobApplyByCompany(Long companyId, int currentPage, int pageSize, String sortBy, boolean isAscending) {
+    public Page<CVListResponse> getJobApplyByCompany(String keyword, ApplyStatusEnum applyStatus,Long companyId, int currentPage, int pageSize, String sortBy, boolean isAscending) {
         Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
 
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
 
-        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByCompany(companyId, pageRequest);
+        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByCompany(companyId, keyword, applyStatus, pageRequest);
 
         Page<CVListResponse> jobResPage = jobApply.map(apply -> {
             return CVListResponse.builder()
@@ -155,6 +156,7 @@ public class ApplyService implements IApplyService {
                     .applyStatus(apply.getApplyStatus())
                     .jobId(apply.getJob().getId())
                     .jobName(apply.getJob().getName())
+                    .coverLetter(apply.getCoverLetter())
                     .userName(apply.getApplicant().getName())
                     .build();
         });

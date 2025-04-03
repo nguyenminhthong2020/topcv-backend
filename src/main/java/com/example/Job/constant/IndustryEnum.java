@@ -15,5 +15,6 @@ public enum IndustryEnum {
     TRANSPORTATION,
     RETAIL,
     ENERGY,
-    AGRICULTURE
+    AGRICULTURE,
+    OTHER
 }
