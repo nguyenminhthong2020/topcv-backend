@@ -32,6 +32,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
@@ -62,7 +70,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-<!--			 <version>1.18.36</version>-->
+			 <version>1.18.36</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -192,7 +200,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-<!--							 <version>1.18.36</version>-->
+							 <version>1.18.36</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -205,7 +213,7 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-<!--							 <version>1.18.36</version>-->
+							 <version>1.18.36</version>
 						</exclude>
 					</excludes>
 				</configuration>

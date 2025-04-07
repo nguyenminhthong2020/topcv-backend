@@ -119,14 +119,14 @@ j  org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcess
 j  org.springframework.aop.framework.ReflectiveMethodInvocation.proceed()Ljava/lang/Object;+120
 j  org.springframework.aop.framework.JdkDynamicAopProxy.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+392
 j  jdk.proxy3.$Proxy195.findConversationsWithUserId(J)Ljava/util/List;+19 jdk.proxy3
-j  com.example.Job.service.Impl.ConversationService.findAllUserWithConversation(J)Ljava/util/List;+5
+j  com.example.Job.service.Impl.ConversationServiceImpl.findAllUserWithConversation(J)Ljava/util/List;+5
 j  java.lang.invoke.LambdaForm$DMH+0x0000020481fec000.invokeVirtual(Ljava/lang/Object;Ljava/lang/Object;J)Ljava/lang/Object;+13 java.base@21.0.6
 j  java.lang.invoke.LambdaForm$MH+0x0000020481fec800.invoke(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+52 java.base@21.0.6
 J 9083 c1 jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@21.0.6 (92 bytes) @ 0x00000204e397feec [0x00000204e397ef00+0x0000000000000fec]
 J 4101 c1 java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@21.0.6 (108 bytes) @ 0x00000204e3e7f954 [0x00000204e3e7f440+0x0000000000000514]
 j  org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+34
 j  org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;Lorg/springframework/cglib/proxy/MethodProxy;)Ljava/lang/Object;+96
-j  com.example.Job.service.Impl.ConversationService$$SpringCGLIB$$0.findAllUserWithConversation(J)Ljava/util/List;+45
+j  com.example.Job.service.Impl.ConversationServiceImpl$$SpringCGLIB$$0.findAllUserWithConversation(J)Ljava/util/List;+45
 j  com.example.Job.controller.ConversationController.getAllChatUsers(J)Lorg/springframework/http/ResponseEntity;+5
 j  java.lang.invoke.LambdaForm$DMH+0x0000020481fec000.invokeVirtual(Ljava/lang/Object;Ljava/lang/Object;J)Ljava/lang/Object;+13 java.base@21.0.6
 j  java.lang.invoke.LambdaForm$MH+0x0000020481fec800.invoke(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+52 java.base@21.0.6

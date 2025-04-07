@@ -63,6 +63,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private static final Logger log = LoggerFactory.getLogger(WebSocketConfig.class);
     private final JwtUtil jwtUtil;
     private final ConcurrentHashMap<String, String> activeSessions = new ConcurrentHashMap<>();
+    public static String userPrivateMessagingDestination = "/queue/messages";
+    public static String userPrivateNotificationDestination = "/queue/notifications";
 
     public WebSocketConfig(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;

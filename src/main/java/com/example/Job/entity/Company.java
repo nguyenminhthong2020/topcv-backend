@@ -47,6 +47,9 @@ public class Company extends Account {
 //        this.role = RoleEnum.COMPANY;
 //    }
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CompanyFollow> companyFollowers = new ArrayList<>();
+
     // Constructor with fields
     public Company(String email, String password, String name, String overview,
                    Address address, IndustryEnum industry, String companyWebsite,

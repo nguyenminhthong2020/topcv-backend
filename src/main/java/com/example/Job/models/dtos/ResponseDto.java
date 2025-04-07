@@ -1,13 +1,20 @@
 package com.example.Job.models.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
 public class ResponseDto {
     private HttpStatus status;
     private String message;
     private Object data;
+    private boolean isSuccess;
 
     public ResponseDto() {
     };
@@ -18,17 +25,7 @@ public class ResponseDto {
         this.data = data;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public Object getData() {
-        return data;
-    }
 
     public static class Builder {
         private HttpStatus status;

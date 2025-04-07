@@ -30,12 +30,15 @@ public class JobController {
 
         jobService.saveJob(jobId);
 
-        ResponseDto responseDto = new ResponseDto.Builder()
-                .setStatus(HttpStatus.OK)
-                .setMessage("Save Job successfully")
-                .setData(null)
+        ResponseDto response = ResponseDto.builder()
+                .data(null)
+                .message("Save Job successfully")
+                .status(HttpStatus.OK)
+                .isSuccess(true)
                 .build();
-        return new ResponseEntity(responseDto, HttpStatus.OK);
+
+
+        return new ResponseEntity(response, HttpStatus.OK);
 
     }
 

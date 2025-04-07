@@ -74,7 +74,9 @@ public class Job {
     @JoinColumn(name = "company_id")
     private Company company;
 
+
     private Instant createdAt;
+
 
     private Instant updatedAt;
 

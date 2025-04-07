@@ -45,6 +45,9 @@ public interface JobRepository extends JpaRepository<Job, Long> {
         j.salary_from AS salaryFrom,
         j.salary_to AS salaryTo,
         j.city AS city,
+        j.created_at AS createdAt,
+        j.updated_at AS updatedAt,
+        j.industry,
         ts_rank_cd(search_vector, plainto_tsquery('pg_catalog.simple', unaccent(:keyword))) as rank
     FROM jobs j
     JOIN companies c ON c.id = j.company_id
@@ -55,8 +58,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
         AND (:industry IS NULL OR j.industry = :industry)
         AND (:level IS NULL OR j.level = :level)
         AND (j.year_of_experience BETWEEN :minExperience AND :maxExperience)
-        AND (j.salary_from >= :minSalary OR j.salary_to <= :maxSalary )
-        AND (:cities IS NULL OR j.city && string_to_array(:cities,',')::TEXT[]) 
+        AND (j.salary_from >= :minSalary AND j.salary_to <= :maxSalary )
+        AND (:cities IS NULL OR j.city && string_to_array(:cities,',')::TEXT[])
     ORDER BY rank DESC
 """, nativeQuery = true)
     Page<GetJobResponseDto> searchJobs(@Param("keyword") String keyword,
@@ -70,6 +73,29 @@ public interface JobRepository extends JpaRepository<Job, Long> {
                                        @Param("cities") String cities,
                                        Pageable pageable);
 
+//    @Query(value = """
+//    SELECT * FROM search_jobs(
+//        :keyword, :jobType, :industry, :level, :minExperience,
+//        :maxExperience, :minSalary, :maxSalary, :cities, :limitSize,
+//        :offsetSize, :sortBy
+//    )
+//""", nativeQuery = true)
+//    Page<GetJobResponseDto> searchJobs(
+//            @Param("keyword") String keyword,
+//            @Param("jobType") String jobType,
+//            @Param("industry") String industry,
+//            @Param("level") String level,
+//            @Param("minExperience") Integer minExperience,
+//            @Param("maxExperience") Integer maxExperience,
+//            @Param("minSalary") Double minSalary,
+//            @Param("maxSalary") Double maxSalary,
+//            @Param("cities") String cities,
+//            @Param("limitSize") Integer limitSize,
+//            @Param("offsetSize") Integer offsetSize,
+//            @Param("sortBy") String sortBy
+//    );
+
+
 
     @Query(value = """
         SELECT
@@ -81,7 +107,9 @@ public interface JobRepository extends JpaRepository<Job, Long> {
             j.year_of_experience AS yearOfExperience,
             j.salary_from AS salaryFrom,
             j.salary_to AS salaryTo,
-            j.city AS city
+            j.city AS city,
+            j.created_at,
+            j.updated_at
         FROM jobs j
         JOIN companies c ON c.id = j.company_id
         JOIN accounts a ON c.id = a.id
