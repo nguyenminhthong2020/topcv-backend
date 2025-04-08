@@ -144,7 +144,7 @@ public class ApplyServiceImpl implements IApplyService {
 
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
 
-        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByCompany(companyId, keyword, applyStatus, pageRequest);
+        Page<JobApply> jobApply = jobApplyRepository.findJobApplyByCompany(companyId, keyword != null ? keyword : "", applyStatus, pageRequest);
 
         Page<CVListResponse> jobResPage = jobApply.map(apply -> {
             return CVListResponse.builder()

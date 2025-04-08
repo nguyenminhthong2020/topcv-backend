@@ -38,6 +38,7 @@ public class Company extends Account {
 
     private String companySize;
 
+    private String taxCode;
     @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Job> jobs = new ArrayList<>();

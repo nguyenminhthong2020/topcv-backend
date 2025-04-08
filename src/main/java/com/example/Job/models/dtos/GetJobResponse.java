@@ -2,6 +2,7 @@ package com.example.Job.models.dtos;
 
 import lombok.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -28,6 +29,9 @@ public class GetJobResponse {
 
     private List<String> city;
 
+    private Instant createdAt;
+
+    private Instant updatedAt;
 
 
 }

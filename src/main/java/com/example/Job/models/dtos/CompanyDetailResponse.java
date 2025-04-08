@@ -14,6 +14,8 @@ public class CompanyDetailResponse {
 
     private String name;
 
+    private String email;
+
     private String overview;
 
     private Address address;
@@ -29,5 +31,7 @@ public class CompanyDetailResponse {
     private String companySize;
 
     private long numOfFollowers;
+
+    private String taxCode;
 
 }

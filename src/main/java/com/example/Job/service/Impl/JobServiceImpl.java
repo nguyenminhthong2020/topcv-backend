@@ -164,6 +164,8 @@ public class JobServiceImpl implements IJobService {
                     .salaryTo(job.getSalaryTo())
                     .city(job.getCity())
                     .name(job.getName())
+                    .createdAt(job.getCreatedAt())
+                    .updatedAt(job.getUpdatedAt())
                     .yearOfExperience(job.getYearOfExperience())
                     .companyName(job.getCompany().getName())
                     .companyImg(job.getCompany().getImgUrl())
