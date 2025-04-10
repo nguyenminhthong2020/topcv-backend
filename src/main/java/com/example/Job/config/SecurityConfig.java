@@ -1,6 +1,8 @@
 package com.example.Job.config;
 
+import com.example.Job.security.CustomOAuth2UserService;
 import com.example.Job.security.JwtAuthenticationEntryPoint;
+import com.example.Job.security.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +23,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final CustomOAuth2UserService customOAuth2UserService;
+//    private final static String oAuth2RedirectUri = "/api/v1/auth/oauth2/success";
+    private final static String oAuth2RedirectUri = "http://localhost:3000/auth/callback";
+
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Autowired
-    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, CustomOAuth2UserService customOAuth2UserService, OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
     }
 
     @Bean
@@ -49,6 +58,11 @@ public class SecurityConfig {
         // http.cors(Customizer.withDefaults());
         // disable Cors
         http.cors(cors -> cors.disable());
+
+        // Spring use OIDC service, not OAuth2 service
+        http.oauth2Login(oauth2 -> oauth2
+                .successHandler(oAuth2LoginSuccessHandler)
+        );
 
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 

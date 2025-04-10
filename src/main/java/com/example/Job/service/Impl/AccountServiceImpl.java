@@ -60,4 +60,9 @@ public class AccountServiceImpl implements IAccountService {
 
         return account;
     }
+
+    @Override
+    public Account updateAccount(Account account) {
+        return accountRepository.save(account);
+    }
 }

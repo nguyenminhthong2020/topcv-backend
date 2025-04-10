@@ -13,4 +13,6 @@ public interface IAccountService {
     List<AccountDto> searchAccountsByName(String name);
 
     Account getAccountById(Long id);
+
+    Account updateAccount(Account account);
 }

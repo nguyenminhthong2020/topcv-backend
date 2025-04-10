@@ -18,10 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,6 +62,38 @@ public class AuthController {
         this._logService = logServivce;
         this.environment = environment;
         this.accountService = accountService;
+    }
+
+    @GetMapping("/oauth2/success")
+    public ResponseEntity<ResponseDto> oauthLoginSuccess() {
+        // Extract provider info
+//        String email = principal.getAttribute("email");
+//        String provider = principal.getAttribute("registration_id").toString();
+
+        String email = JwtUtil.getCurrentUserLogin().orElse(null);
+        // Get account
+        Account account = accountService.getAccountByEmail(email);
+        if (account == null) {
+            throw new BadCredentialsException("OAuth authentication failed");
+        }
+
+        // Generate JWT token for the OAuth user (similar to regular login)
+        JwtAuthResponse.UserLogin userLogin = new JwtAuthResponse.UserLogin(
+                account.getId(), account.getEmail(), account.getName(), account.getRole());
+
+//        String accessToken = jwtUtil.createAccessToken(account);
+        String accessToken = JwtUtil.getAccessToken();
+
+        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+        jwtAuthResponse.setAccessToken(accessToken);
+        jwtAuthResponse.setUserLogin(userLogin);
+
+        ResponseDto response = ResponseDto.builder()
+                .message("OAuth login successful")
+                .status(HttpStatus.OK)
+                .data(jwtAuthResponse)
+                .build();
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/login")

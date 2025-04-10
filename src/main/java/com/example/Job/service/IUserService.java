@@ -15,6 +15,7 @@ public interface IUserService {
 
     User getUserByEmail(String email);
 
+    User createUser(User newUser);
     public void updateUserToken(String token, String email);
 
     public List<UserDto> getUsers();

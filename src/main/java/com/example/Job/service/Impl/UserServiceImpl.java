@@ -66,6 +66,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User createUser(User newUser) {
+        return userRepository.save(newUser);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUserToken(String token, String email) {
         User user = getUserByEmail(email);

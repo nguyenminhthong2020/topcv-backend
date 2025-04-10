@@ -1,5 +1,6 @@
 package com.example.Job.entity;
 
+import com.example.Job.constant.AuthProvider;
 import com.example.Job.constant.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,6 +32,13 @@ public abstract class Account {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", updatable = false) //  Prevent duplicate mapping
     protected RoleEnum role;
+
+    @Column(name = "provider")
+    protected String provider; // "google", "facebook", or null for regular auth
+
+    @Column(name = "provider_id")
+    protected String providerId; // User ID from OAuth provider
+
     protected Account() {}
 
 
