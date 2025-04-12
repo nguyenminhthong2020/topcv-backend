@@ -2,6 +2,7 @@ package com.example.Job.entity;
 
 import com.example.Job.constant.GenderEnum;
 import com.example.Job.constant.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,12 +30,14 @@ public class User extends Account{
 //    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<JobApply> jobApplies = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Job_Save",
             joinColumns = @JoinColumn(name = "user_id") ,
             inverseJoinColumns =  @JoinColumn(name = "job_id")
     )
+
     Set<Job> savedJobs;
 
     public User() {

@@ -48,6 +48,7 @@ public class Company extends Account {
 //        this.role = RoleEnum.COMPANY;
 //    }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CompanyFollow> companyFollowers = new ArrayList<>();
 

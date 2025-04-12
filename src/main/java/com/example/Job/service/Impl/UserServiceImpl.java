@@ -1,9 +1,11 @@
 package com.example.Job.service.Impl;
 
+import com.example.Job.config.RedisConfig;
 import com.example.Job.models.dtos.UserDto;
 import com.example.Job.entity.User;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.repository.UserRepository;
+import com.example.Job.service.IRedisService;
 import com.example.Job.service.IUserService;
 
 import java.util.List;
@@ -20,13 +22,15 @@ import org.springframework.data.domain.Sort;
 
 @Service
 public class UserServiceImpl implements IUserService {
-    UserRepository userRepository;
-    ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+    private final IRedisService redisService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, IRedisService redisService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.redisService = redisService;
     }
 
     @Override
@@ -67,7 +71,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User createUser(User newUser) {
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+
+        return savedUser;
     }
 
     @Override

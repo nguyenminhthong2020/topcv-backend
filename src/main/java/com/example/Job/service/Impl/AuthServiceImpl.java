@@ -1,5 +1,6 @@
 package com.example.Job.service.Impl;
 
+import com.example.Job.config.RedisConfig;
 import com.example.Job.constant.RoleEnum;
 import com.example.Job.entity.Account;
 import com.example.Job.models.ResultObject;
@@ -11,6 +12,7 @@ import com.example.Job.repository.UserRepository;
 import com.example.Job.security.JwtUtil;
 import com.example.Job.service.IAuthService;
 
+import com.example.Job.service.IRedisService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,20 +27,23 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class AuthServiceImpl implements IAuthService {
-    private UserRepository userRepository;
-    private AuthenticationManager authenticationManager;
-    private ModelMapper modelMapper;
-    private PasswordEncoder passwordEncoder;
-    private JwtUtil jwtUtil;
+
+    private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final IRedisService redisService;
 
     @Autowired
     public AuthServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager,
-                           ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+                           ModelMapper modelMapper, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, IRedisService redisService) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
+        this.redisService = redisService;
     }
 
     @Override
@@ -83,6 +88,8 @@ public class AuthServiceImpl implements IAuthService {
         // user.getRoles().add(userRole);
 
         User addedUser = userRepository.save(user);
+
+
 
         return new ResultObject<UserDto>(true, null, HttpStatus.CREATED, modelMapper.map(addedUser, UserDto.class));
     }
