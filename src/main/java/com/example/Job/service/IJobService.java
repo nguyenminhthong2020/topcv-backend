@@ -34,12 +34,7 @@ public interface IJobService {
                                           Double minSalary, Double maxSalary, List<String> cities
                                        );
 
-    void saveJob(Long jobId);
 
-
-    void deleteSavedJob(Long jobId);
-
-    Page<GetJobResponse> getAllSavedJobsByUser(int currentPage, int pageSize, String sortBy, boolean isAscending);
 
     void updateJobStatus(UpdateJobStatusRequest request);
 }

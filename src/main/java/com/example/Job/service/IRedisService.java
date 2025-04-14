@@ -30,9 +30,20 @@ public interface IRedisService {
     // Get all elements in a list
     List<String> getList(String key);
 
+    // Add to a set
+    <T> boolean addToSet(String key, T value, boolean isRollback);
+
+    // Get all elements in a set
+    <T> Set<T> getSet(String key, Class<T> clazz);
+
+    <T> Boolean isMemberOfSet(String key, T value);
+
+    <T> Boolean removeFromSet(String key, T value, boolean isRollback);
+
     // Set expiration for a key
     void setExpiration(String key, long timeout, TimeUnit unit);
 
+    void setExpiration(String key, Duration duration);
     // Check if a key exists
     boolean exists(String key);
 }

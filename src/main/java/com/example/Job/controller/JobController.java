@@ -6,6 +6,7 @@ import com.example.Job.constant.JobTypeEnum;
 import com.example.Job.constant.LevelEnum;
 import com.example.Job.models.ResultPagination;
 import com.example.Job.models.dtos.*;
+import com.example.Job.service.IJobSaveService;
 import com.example.Job.service.IJobService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -18,17 +19,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/jobs")
 public class JobController {
-    private IJobService jobService;
-
-    public JobController(IJobService jobService) {
+    private final IJobService jobService;
+    private final IJobSaveService jobSaveService;
+    public JobController(IJobService jobService, IJobSaveService jobSaveService) {
         this.jobService = jobService;
+        this.jobSaveService = jobSaveService;
     }
 
     @PostMapping("/save")
     public ResponseEntity<ResponseDto> saveJob(@RequestParam(value = "jobId") Long jobId) {
 
 
-        jobService.saveJob(jobId);
+        jobSaveService.saveJob(jobId);
 
         ResponseDto response = ResponseDto.builder()
                 .data(null)
@@ -242,7 +244,7 @@ public class JobController {
                                                             @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
 
 
-        Page<GetJobResponse> jobResPage = jobService.getAllSavedJobsByUser(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+        Page<GetJobResponse> jobResPage = jobSaveService.getAllSavedJobsByUser(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
 
         ResultPagination<GetJobResponse> res = ResultPagination.<GetJobResponse>builder()
                 .isSuccess(true)
@@ -264,7 +266,7 @@ public class JobController {
     @DeleteMapping("/save")
     public ResponseEntity<ResponseDto> removeSavedJob(@RequestParam(value = "jobId") Long jobId) {
 
-        jobService.deleteSavedJob(jobId);
+        jobSaveService.deleteSavedJob(jobId);
 
         ResponseDto response = ResponseDto.builder()
                 .status(HttpStatus.OK)

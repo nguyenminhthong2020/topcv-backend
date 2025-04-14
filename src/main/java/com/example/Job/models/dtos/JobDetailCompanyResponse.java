@@ -50,6 +50,8 @@ public class JobDetailCompanyResponse {
 
     private JobStatusEnum jobStatus;
 
+    private boolean isSaved;
+
     private Instant createdAt;
 
     private Instant updatedAt;

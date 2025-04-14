@@ -11,6 +11,7 @@ import com.example.Job.repository.CompanyRepository;
 import com.example.Job.repository.JobRepository;
 import com.example.Job.repository.JobSaveRepository;
 import com.example.Job.security.JwtUtil;
+import com.example.Job.service.IJobSaveService;
 import com.example.Job.service.IJobService;
 import com.example.Job.service.INotificationService;
 import jakarta.transaction.Transactional;
@@ -31,15 +32,16 @@ public class JobServiceImpl implements IJobService {
     private final JobRepository jobRepository;
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
-    private final JobSaveRepository jobSaveRepository;
+    private final IJobSaveService jobSaveService;
     private final JwtUtil jwtUtil;
     private final INotificationService notificationService;
 
-    public JobServiceImpl(JobRepository jobRepository, ModelMapper modelMapper, CompanyRepository companyRepository, JobSaveRepository jobSaveRepository, JwtUtil jwtUtil, INotificationService notificationService) {
+    public JobServiceImpl(JobRepository jobRepository, ModelMapper modelMapper, CompanyRepository companyRepository, IJobSaveService jobSaveService, JwtUtil jwtUtil, INotificationService notificationService) {
         this.jobRepository = jobRepository;
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
-        this.jobSaveRepository = jobSaveRepository;
+        this.jobSaveService = jobSaveService;
+
         this.jwtUtil = jwtUtil;
         this.notificationService = notificationService;
     }
@@ -137,7 +139,12 @@ public class JobServiceImpl implements IJobService {
     public JobDetailCompanyResponse getJobDetailWithCompanyById(long id) {
         Job job = getJobById(id);
 
-        return modelMapper.map(job, JobDetailCompanyResponse.class);
+        JobDetailCompanyResponse response = modelMapper.map(job, JobDetailCompanyResponse.class);
+
+        boolean isSaved = jobSaveService.isJobSaved(job.getId());
+        response.setSaved(isSaved);
+
+        return response;
     }
 
     @Override
@@ -230,71 +237,6 @@ public class JobServiceImpl implements IJobService {
         return jobPage;
     }
 
-    @Override
-    public void saveJob(Long jobId) {
-        String userId = jwtUtil.extractUserIdFromToken();
-        User user = new User();
-        Job job = new Job();
-
-        user.setId(Long.parseLong(userId));
-        job.setId(jobId);
-
-        JobSaveId jobSaveId = new JobSaveId(Long.parseLong( userId), jobId);
-        JobSave jobSave = new JobSave(jobSaveId, user, job);
-
-
-        try {
-            if(!jobSaveRepository.existsById(jobSaveId)){
-                jobSaveRepository.save(jobSave);
-            }
-
-        }catch (RuntimeException exception){
-            throw new RuntimeException("Error saving job");
-        }
-    }
-
-    @Override
-    public void deleteSavedJob(Long jobId) {
-        String userId = jwtUtil.extractUserIdFromToken();
-
-        JobSaveId jobSaveId = new JobSaveId(Long.parseLong( userId), jobId);
-
-
-        try {
-            jobSaveRepository.deleteById(jobSaveId);
-        }catch (RuntimeException exception){
-            throw new RuntimeException("Error deleting saved job");
-        }
-
-
-
-    }
-
-    @Override
-    public Page<GetJobResponse> getAllSavedJobsByUser(int currentPage, int pageSize, String sortBy, boolean isAscending) {
-        String userId = jwtUtil.extractUserIdFromToken();
-
-        Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
-
-        PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
-
-        Page<Job> savedJobs = jobSaveRepository.findSavedJobByUserId(Long.valueOf(userId), pageRequest);
-
-        Page<GetJobResponse> jobResPage = savedJobs.map(job -> {
-            return GetJobResponse.builder()
-                    .id(job.getId())
-                    .salaryFrom(job.getSalaryFrom())
-                    .salaryTo(job.getSalaryTo())
-                    .city(job.getCity())
-                    .name(job.getName())
-                    .yearOfExperience(job.getYearOfExperience())
-                    .companyName(job.getCompany().getName())
-                    .companyId(job.getCompany().getId())
-                    .companyImg(job.getCompany().getImgUrl())
-                    .build();
-        });
-        return jobResPage;
-    }
 
 
     @Override
