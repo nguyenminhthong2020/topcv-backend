@@ -1,6 +1,6 @@
 package com.example.Job.security;
 
-import com.example.Job.constant.AuthProvider;
+
 import com.example.Job.constant.RoleEnum;
 import com.example.Job.entity.Account;
 import com.example.Job.entity.User;
