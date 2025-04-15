@@ -94,8 +94,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             newUser.setProviderId(providerId);
             newUser.setRole(RoleEnum.USER);
 
-            // For OAuth users, we typically don't store a password
-            // But your system might require one, so generate a secure random string
+
             newUser.setPassword(UUID.randomUUID().toString());
 
             Account user = userService.createUser(newUser);

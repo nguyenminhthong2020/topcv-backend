@@ -78,8 +78,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             newUser.setProviderId(providerId);
             newUser.setRole(RoleEnum.USER);
 
-            // For OAuth users, we typically don't store a password
-            // But your system might require one, so generate a secure random string
+
             newUser.setPassword(UUID.randomUUID().toString());
 
             userService.createUser(newUser);
