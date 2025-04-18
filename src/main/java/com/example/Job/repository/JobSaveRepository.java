@@ -2,7 +2,7 @@ package com.example.Job.repository;
 
 import com.example.Job.entity.Job;
 import com.example.Job.entity.JobSave;
-import com.example.Job.entity.JobSaveId;
+import com.example.Job.entity.Id.JobSaveId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

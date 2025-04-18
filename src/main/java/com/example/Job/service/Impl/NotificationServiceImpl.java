@@ -1,8 +1,6 @@
 package com.example.Job.service.Impl;
 
 import com.example.Job.config.WebSocketConfig;
-import com.example.Job.entity.Account;
-import com.example.Job.entity.CompanyFollowId;
 import com.example.Job.entity.Notification;
 import com.example.Job.models.dtos.NotificationRequest;
 import com.example.Job.models.dtos.NotificationResponse;

@@ -2,7 +2,7 @@ package com.example.Job.repository;
 
 import com.example.Job.entity.Company;
 import com.example.Job.entity.CompanyFollow;
-import com.example.Job.entity.CompanyFollowId;
+import com.example.Job.entity.Id.CompanyFollowId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

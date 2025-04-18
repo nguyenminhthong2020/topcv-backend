@@ -2,7 +2,7 @@ package com.example.Job.service.Impl;
 
 import com.example.Job.entity.Company;
 import com.example.Job.entity.CompanyFollow;
-import com.example.Job.entity.CompanyFollowId;
+import com.example.Job.entity.Id.CompanyFollowId;
 import com.example.Job.entity.User;
 import com.example.Job.repository.CompanyFollowRepository;
 import com.example.Job.security.JwtUtil;

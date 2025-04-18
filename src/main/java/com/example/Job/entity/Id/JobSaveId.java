@@ -1,4 +1,4 @@
-package com.example.Job.entity;
+package com.example.Job.entity.Id;
 
 
 import jakarta.persistence.Embeddable;

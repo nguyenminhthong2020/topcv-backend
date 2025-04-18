@@ -1,5 +1,6 @@
 package com.example.Job.entity;
 
+import com.example.Job.entity.Id.CompanyFollowId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
