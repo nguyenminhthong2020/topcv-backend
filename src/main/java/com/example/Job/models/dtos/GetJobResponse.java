@@ -1,5 +1,6 @@
 package com.example.Job.models.dtos;
 
+import com.example.Job.constant.IndustryEnum;
 import lombok.*;
 
 import java.time.Instant;
@@ -33,5 +34,6 @@ public class GetJobResponse {
 
     private Instant updatedAt;
 
+    private IndustryEnum industry;
 
 }

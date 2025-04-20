@@ -1,24 +1,24 @@
 package com.example.Job.service.Impl;
 
-import com.example.Job.constant.IndustryEnum;
 import com.example.Job.constant.JobStatusEnum;
-import com.example.Job.constant.JobTypeEnum;
-import com.example.Job.constant.LevelEnum;
 import com.example.Job.entity.*;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.models.dtos.*;
 import com.example.Job.repository.CompanyRepository;
 import com.example.Job.repository.JobRepository;
-import com.example.Job.repository.JobSaveRepository;
 import com.example.Job.security.JwtUtil;
 import com.example.Job.service.IJobSaveService;
 import com.example.Job.service.IJobService;
 import com.example.Job.service.INotificationService;
+import com.example.Job.specifications.JobOrdering;
+import com.example.Job.specifications.JobSpecifications;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -204,10 +204,32 @@ public class JobServiceImpl implements IJobService {
     }
 
     @Override
-    public List<GetJobResponseDto> getRelatedJob(Long jobId, int limit) {
-        List<GetJobResponseDto> relatedJobs = jobRepository.findRelatedJobsByKeyword(jobId, limit);
+    public List<GetJobResponse> getRelatedJob(Long jobId, String title, int limit) {
+//        List<GetJobResponseDto> relatedJobs = jobRepository.findRelatedJobsByKeyword(jobId, limit);
 
-        return relatedJobs;
+        Specification<Job> spec = (root, query, cb) -> {
+            // Add filtering logic
+            Predicate predicate = Specification
+                    .where(JobSpecifications.hasSimilarKeywordWithTitle(title))
+                    .toPredicate(root, query, cb);
+
+            // Add ordering logic
+            JobOrdering jobOrdering = new JobOrdering();
+
+            jobOrdering.addRankOrder(root, cb, title);
+
+            // Apply ordering
+            jobOrdering.apply(query);
+
+            return predicate;
+        };
+
+        Page<Job> jobPage = jobRepository.findAll(spec, PageRequest.of(0, limit));
+
+        Page<GetJobResponse> jobResponses = jobPage.map(job -> modelMapper.map(job, GetJobResponse.class));
+
+        return jobResponses.getContent().stream().
+                filter(job -> job.getId() != jobId).collect(Collectors.toList());
     }
 
 
@@ -216,25 +238,52 @@ public class JobServiceImpl implements IJobService {
 
     }
 
-
-
     @Override
-    public Page<GetJobResponseDto> searchForJobs(String keyword, int currentPage, int pageSize, String sortBy, boolean isAscending,
-                                                 JobTypeEnum jobType , IndustryEnum industry, LevelEnum level, Integer minExperience, Integer maxExperience,
-                                                 Double minSalary, Double maxSalary, List<String> cities
-                                              ) {
-        Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
-
-        PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
-
-        String citiesParam = cities == null ? null : String.join(",", cities);
-
-        Page<GetJobResponseDto> jobPage = jobRepository.searchJobs(keyword, jobType != null ? jobType.name() : null,
-                industry != null ? industry.name() : null, level != null ? level.name() : null,
-                minExperience, maxExperience, minSalary, maxSalary, citiesParam ,pageRequest);
+    public Page<GetJobResponse> searchForJobs(int currentPage, int pageSize, String sortBy, boolean isAscending, JobFilter jobFilter) {
+//        Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
 
 
-        return jobPage;
+        PageRequest pageRequest = PageRequest.of(currentPage, pageSize);
+
+        Specification<Job> spec = (root, query, cb) -> {
+            // Add filtering logic
+            Predicate predicate = Specification
+                    .where(JobSpecifications.hasKeyword(jobFilter.getKeyword())
+                            .and(JobSpecifications.hasJobType(jobFilter.getJobType()))
+                            .and(JobSpecifications.hasIndustry(jobFilter.getIndustry()))
+                            .and(JobSpecifications.hasLevel(jobFilter.getLevel()))
+                            .and(JobSpecifications.hasExperienceBetween(jobFilter.getMinExperience(), jobFilter.getMaxExperience()))
+                            .and(JobSpecifications.hasSalaryBetween(jobFilter.getMinSalary(), jobFilter.getMaxSalary()))
+                            .and(JobSpecifications.hasCityIn(jobFilter.getCities())))
+                    .toPredicate(root, query, cb);
+
+            // Add ordering logic
+            JobOrdering jobOrdering = new JobOrdering();
+            jobOrdering.addSortBy(root, cb, sortBy, isAscending);
+            jobOrdering.addRankOrder(root, cb, jobFilter.getKeyword());
+
+            // Apply ordering
+            jobOrdering.apply(query);
+
+            return predicate;
+        };
+
+//        Specification<Job> spec =  Specification.where(
+//                    JobSpecifications.hasKeyword(jobFilter.getKeyword())
+//                            .and(JobSpecifications.hasJobType(jobFilter.getJobType()))
+//                            .and(JobSpecifications.hasIndustry(jobFilter.getIndustry()))
+//                            .and(JobSpecifications.hasLevel(jobFilter.getLevel()))
+//                            .and(JobSpecifications.hasExperienceBetween(jobFilter.getMinExperience(), jobFilter.getMaxExperience()))
+//                            .and(JobSpecifications.hasSalaryBetween(jobFilter.getMinSalary(), jobFilter.getMaxSalary()))
+//                            .and(JobSpecifications.hasCityIn(jobFilter.getCities()))
+//                .and(JobSpecifications.sortBy(sortBy, isAscending))
+//                .and(JobSpecifications.orderByRank(jobFilter.getKeyword()));
+
+
+
+        Page<Job> jobPage = jobRepository.findAll(spec, pageRequest);
+
+        return jobPage.map(job -> modelMapper.map(job, GetJobResponse.class));
     }
 
 

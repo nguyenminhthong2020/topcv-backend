@@ -1,9 +1,11 @@
 package com.example.Job.models.dtos;
 
 import com.example.Job.constant.IndustryEnum;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
+
 
 public interface GetJobResponseDto {
     Long getId();

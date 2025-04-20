@@ -184,8 +184,8 @@ public class JobController {
     @GetMapping("/search")
     public ResponseEntity<ResultPagination> searchForJobs(@RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                                                              @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
-                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending,
+                                                              @RequestParam(value = "sortBy", required = false) String sortBy,
+                                                              @RequestParam(value = "ascending", required = false) String isAscending,
                                                           @RequestParam(value = "keyword", required = false) String keyword,
                                                           @RequestParam(value = "jobType", required = false) JobTypeEnum jobType,
                                                           @RequestParam(value = "industry", required = false) IndustryEnum industry,
@@ -200,10 +200,21 @@ public class JobController {
         double minSal = minSalary == null ? 0 : minSalary;
         double maxSal = maxSalary == null ? Double.MAX_VALUE : maxSalary;
 
-        Page<GetJobResponseDto> jobResPage = jobService.searchForJobs(keyword,current - 1, pageSize, sortBy, Boolean.valueOf(isAscending),
-                jobType, industry, level, minExperience, maxExperience, minSal, maxSal, cities);
+        JobFilter jobFilter = JobFilter.builder()
+                .keyword(keyword)
+                .jobType(jobType)
+                .industry(industry)
+                .level(level)
+                .minExperience(minExperience)
+                .maxExperience(maxExperience)
+                .minSalary(minSal)
+                .maxSalary(maxSal)
+                .cities(cities)
+                .build();
+        Page<GetJobResponse> jobResPage = jobService.searchForJobs(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending),
+                jobFilter);
 
-        ResultPagination<GetJobResponseDto> res = ResultPagination.<GetJobResponseDto>builder()
+        ResultPagination<GetJobResponse> res = ResultPagination.<GetJobResponse>builder()
                 .isSuccess(true)
                 .message("Get jobs successfully")
                 .httpStatus(HttpStatus.OK)
@@ -222,13 +233,15 @@ public class JobController {
 
     @GetMapping("/{jobId}/related")
     public ResponseEntity<ResponseDto> getRelatedJobs(@PathVariable Long jobId,
-                                                       @RequestParam(defaultValue = "5") int limit) {
+                                                       @RequestParam(name = "keyword") String keyword,
+                                                       @RequestParam(defaultValue = "7") int limit) {
 
-        List<GetJobResponseDto> relatedJob = jobService.getRelatedJob(jobId, limit);
+        List<GetJobResponse> relatedJob = jobService.getRelatedJob(jobId, keyword, limit);
 
         ResponseDto response = ResponseDto.builder()
                 .status(HttpStatus.OK)
                 .message("Get related job successfully")
+                .isSuccess(true)
                 .data(relatedJob)
                 .build();
 
@@ -272,6 +285,7 @@ public class JobController {
                 .status(HttpStatus.OK)
                 .message("Remove saved job successfully")
                 .data(null)
+                .isSuccess(true)
                 .build();
 
 
@@ -285,6 +299,7 @@ public class JobController {
         jobService.updateJobStatus(request);
 
         ResponseDto response = ResponseDto.builder()
+                .isSuccess(true)
                 .status(HttpStatus.OK)
                 .message("Update job status successfully")
                 .data(null)
