@@ -122,6 +122,8 @@ public class JobServiceImpl implements IJobService {
                     .companyName(job.getCompany().getName())
                     .companyImg(job.getCompany().getImgUrl())
                     .companyId(job.getCompany().getId())
+                    .createdAt(job.getCreatedAt())
+                    .updatedAt(job.getUpdatedAt())
                     .build();
         });
 
@@ -284,7 +286,14 @@ public class JobServiceImpl implements IJobService {
 
         Page<Job> jobPage = jobRepository.findAll(spec, pageRequest);
 
-        return jobPage.map(job -> modelMapper.map(job, GetJobResponse.class));
+
+        return jobPage.map(job -> {
+                GetJobResponse response = modelMapper.map(job, GetJobResponse.class);
+                boolean isSaved = jobSaveService.isJobSaved(job.getId());
+                response.setSaved(isSaved);
+                return response;
+            }
+        );
     }
 
 

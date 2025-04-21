@@ -36,4 +36,6 @@ public class GetJobResponse {
 
     private IndustryEnum industry;
 
+    private boolean isSaved;
+
 }
