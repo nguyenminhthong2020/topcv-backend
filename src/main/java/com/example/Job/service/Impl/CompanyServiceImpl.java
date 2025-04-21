@@ -13,6 +13,8 @@ import com.example.Job.service.ICompanyService;
 import com.example.Job.service.IRedisService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import java.time.Duration;
 @Service
 public class CompanyServiceImpl implements ICompanyService {
 
+    private static final Logger log = LoggerFactory.getLogger(CompanyServiceImpl.class);
     private final CompanyRepository companyRepository;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
@@ -57,10 +60,15 @@ public class CompanyServiceImpl implements ICompanyService {
         company.setRole(RoleEnum.COMPANY);
         company.setName(registerRequest.getName());
 
-        Company savedCompany = companyRepository.save(company);
+        try {
+            Company savedCompany = companyRepository.save(company);
 
+            return savedCompany;
+        } catch (Exception e) {
+            log.error( e.getMessage());
+            throw new RuntimeException("Failed to register company. Please try again.");
+        }
 
-        return savedCompany;
     }
 
 

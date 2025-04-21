@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+// This is for testing only
 @Service
 public class RedisService {
 

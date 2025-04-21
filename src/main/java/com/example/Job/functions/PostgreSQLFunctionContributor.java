@@ -35,7 +35,7 @@ public class PostgreSQLFunctionContributor implements FunctionContributor {
         functionRegistry.registerPattern(
                 "fts_or_query",
                 "?1 @@ replace(plainto_tsquery('pg_catalog.simple', unaccent(?2))::text, '&', '|')::tsquery",
-                typeConfiguration.getBasicTypeRegistry().resolve(StandardBasicTypes.OBJECT_TYPE) // or TSQUERY if you have a mapped type
+                typeConfiguration.getBasicTypeRegistry().resolve(StandardBasicTypes.OBJECT_TYPE) // or TSQUERY
         );
 
     }

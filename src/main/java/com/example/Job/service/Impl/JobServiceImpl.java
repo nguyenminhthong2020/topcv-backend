@@ -74,6 +74,7 @@ public class JobServiceImpl implements IJobService {
                 .build();
 //        newJob.setCompany(company);
 
+
         Job savedJob = jobRepository.save(newJob);
 
         List<String> followerIds = company.getCompanyFollowers().stream().map(companyFollow ->

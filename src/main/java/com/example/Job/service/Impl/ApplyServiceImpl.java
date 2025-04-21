@@ -13,6 +13,8 @@ import com.example.Job.service.IApplyService;
 import com.example.Job.service.IStorageService;
 import com.example.Job.utils.FileUtil;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 @Service
 public class ApplyServiceImpl implements IApplyService {
 
+    private static final Logger log = LoggerFactory.getLogger(ApplyServiceImpl.class);
     private final ModelMapper modelMapper;
     private final JobApplyRepository jobApplyRepository;
     private final IStorageService storageService;
@@ -66,7 +69,13 @@ public class ApplyServiceImpl implements IApplyService {
             jobApply.setResume(resumeUrl);
         }
 
-        return jobApplyRepository.save(jobApply);
+        try{
+            return jobApplyRepository.save(jobApply);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while applying for job. Please try again.");
+        }
+
 
 //        return uploadedResume;
 
@@ -171,9 +180,16 @@ public class ApplyServiceImpl implements IApplyService {
 
         resume.setApplyStatus(applyStatus);
 
-        JobApply updatedResume = jobApplyRepository.save(resume);
+        try {
+            JobApply updatedResume = jobApplyRepository.save(resume);
+            return modelMapper.map(updatedResume, ResumeUpdateResponse.class);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while updating resume status. Please try again.");
+        }
 
-        return modelMapper.map(updatedResume, ResumeUpdateResponse.class);
+
+
 
     }
 
