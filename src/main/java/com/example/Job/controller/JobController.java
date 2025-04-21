@@ -94,8 +94,8 @@ public class JobController {
     @GetMapping
     public ResponseEntity<ResultPagination> getJobsPagination(@RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                                                                      @RequestParam(value = "sortBy", defaultValue = "yearOfExperience") String sortBy,
-                                                                      @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+                                                                      @RequestParam(value = "sortBy", defaultValue = "createdAt") String sortBy,
+                                                                      @RequestParam(value = "ascending", defaultValue = "false") String isAscending) {
 
 //        int defaultPage = 1;
 //        int defaultPageSize = 5;
