@@ -52,6 +52,10 @@ public class JobDetailCompanyResponse {
 
     private boolean isSaved;
 
+//    private boolean isApplied;
+
+    private Instant appliedAt;
+
     private Instant createdAt;
 
     private Instant updatedAt;

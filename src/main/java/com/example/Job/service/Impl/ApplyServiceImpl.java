@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class ApplyServiceImpl implements IApplyService {
@@ -197,6 +198,14 @@ public class ApplyServiceImpl implements IApplyService {
     public JobApply findResumeById(long resumeId) {
         return jobApplyRepository.findById(resumeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));
+    }
+
+    @Override
+    public JobApply findJobApplyByJobId(long jobId) {
+        String userId = jwtUtil.extractUserIdFromToken();
+        Optional<JobApply> jobApply = jobApplyRepository.findByJobIdAndApplicantId(jobId, Long.parseLong(userId));
+
+        return jobApply.orElse(null);
     }
 
 

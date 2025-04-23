@@ -1,8 +1,8 @@
 package com.example.Job.config;
 
-import com.example.Job.security.CustomOAuth2UserService;
+import com.example.Job.security.oauth2.CustomOAuth2UserService;
 import com.example.Job.security.JwtAuthenticationEntryPoint;
-import com.example.Job.security.OAuth2LoginSuccessHandler;
+import com.example.Job.security.oauth2.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;

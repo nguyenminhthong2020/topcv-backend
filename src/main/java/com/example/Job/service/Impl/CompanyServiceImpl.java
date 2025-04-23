@@ -4,11 +4,16 @@ import com.example.Job.config.RedisConfig;
 import com.example.Job.constant.RoleEnum;
 import com.example.Job.entity.Address;
 import com.example.Job.entity.Company;
+import com.example.Job.entity.CompanyFollow;
+import com.example.Job.entity.Id.CompanyFollowId;
+import com.example.Job.entity.User;
 import com.example.Job.exception.ResourceNotFoundException;
 import com.example.Job.models.dtos.CompanyRegister;
 import com.example.Job.models.dtos.CompanyDetailResponse;
 import com.example.Job.repository.AccountRepository;
 import com.example.Job.repository.CompanyRepository;
+import com.example.Job.security.JwtUtil;
+import com.example.Job.service.IAccountService;
 import com.example.Job.service.ICompanyService;
 import com.example.Job.service.IRedisService;
 import jakarta.transaction.Transactional;
@@ -29,13 +34,17 @@ public class CompanyServiceImpl implements ICompanyService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final IRedisService redisService;
+    private final JwtUtil jwtUtil;
+    private final IAccountService accountService;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository, AccountRepository accountRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, IRedisService redisService) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, AccountRepository accountRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, IRedisService redisService, JwtUtil jwtUtil, IAccountService accountService) {
         this.companyRepository = companyRepository;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.redisService = redisService;
+        this.jwtUtil = jwtUtil;
+        this.accountService = accountService;
     }
 
     @Override
@@ -105,4 +114,21 @@ public class CompanyServiceImpl implements ICompanyService {
 
         return company;
     }
+
+//    @Override
+//    public void followNewCompany(long companyId) {
+//        String userId = jwtUtil.extractUserIdFromToken();
+//        CompanyFollowId companyFollowId = new CompanyFollowId(companyId, Long.parseLong(userId));
+//        User user = new User();
+//        user.setId(Long.parseLong(userId));
+//
+//        Company company = new Company();
+//        company.setId(companyId);
+//
+//        CompanyFollow companyFollow = new CompanyFollow(companyFollowId, user,company);
+//
+//
+//
+//    }
+
 }

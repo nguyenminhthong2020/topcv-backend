@@ -7,6 +7,7 @@ import com.example.Job.models.dtos.*;
 import com.example.Job.repository.CompanyRepository;
 import com.example.Job.repository.JobRepository;
 import com.example.Job.security.JwtUtil;
+import com.example.Job.service.IApplyService;
 import com.example.Job.service.IJobSaveService;
 import com.example.Job.service.IJobService;
 import com.example.Job.service.INotificationService;
@@ -34,15 +35,17 @@ public class JobServiceImpl implements IJobService {
     private final CompanyRepository companyRepository;
     private final IJobSaveService jobSaveService;
     private final JwtUtil jwtUtil;
+    private final IApplyService applyService;
     private final INotificationService notificationService;
 
-    public JobServiceImpl(JobRepository jobRepository, ModelMapper modelMapper, CompanyRepository companyRepository, IJobSaveService jobSaveService, JwtUtil jwtUtil, INotificationService notificationService) {
+    public JobServiceImpl(JobRepository jobRepository, ModelMapper modelMapper, CompanyRepository companyRepository, IJobSaveService jobSaveService, JwtUtil jwtUtil, IApplyService applyService, INotificationService notificationService) {
         this.jobRepository = jobRepository;
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
         this.jobSaveService = jobSaveService;
 
         this.jwtUtil = jwtUtil;
+        this.applyService = applyService;
         this.notificationService = notificationService;
     }
 
@@ -134,8 +137,10 @@ public class JobServiceImpl implements IJobService {
     @Override
     public JobDetailResponse getJobDetailById(long id) {
         Job job = getJobById(id);
+        JobDetailResponse response = modelMapper.map(job, JobDetailResponse.class);
 
-        return modelMapper.map(job, JobDetailResponse.class);
+
+        return response;
     }
 
     @Override
@@ -147,6 +152,11 @@ public class JobServiceImpl implements IJobService {
         boolean isSaved = jobSaveService.isJobSaved(job.getId());
         response.setSaved(isSaved);
 
+        JobApply apply = applyService.findJobApplyByJobId(job.getId());
+
+        if(apply != null){
+            response.setAppliedAt(apply.getCreatedAt());
+        }
         return response;
     }
 

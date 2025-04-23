@@ -39,6 +39,8 @@ public class Company extends Account {
     private String companySize;
 
     private String taxCode;
+
+    private Long numOfFollowers;
     @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Job> jobs = new ArrayList<>();
@@ -66,5 +68,9 @@ public class Company extends Account {
         this.imgUrl = imgUrl;
         this.companySize = companySize;
         this.role = RoleEnum.COMPANY;
+    }
+
+    public void addNewFollower(CompanyFollow companyFollow){
+        this.companyFollowers.add(companyFollow);
     }
 }

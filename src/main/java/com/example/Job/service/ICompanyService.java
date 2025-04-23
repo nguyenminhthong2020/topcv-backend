@@ -10,4 +10,5 @@ public interface ICompanyService {
     CompanyDetailResponse getCompanyDetailById(Long companyId);
 
     Company getCompanyById(Long id);
+
 }

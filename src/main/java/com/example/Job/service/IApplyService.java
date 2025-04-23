@@ -21,4 +21,6 @@ public interface IApplyService {
     ResumeUpdateResponse updateResumeStatus(long resumeId, ApplyStatusEnum applyStatus);
 
     JobApply findResumeById(long resumeId);
+
+    JobApply findJobApplyByJobId(long jobId);
 }
